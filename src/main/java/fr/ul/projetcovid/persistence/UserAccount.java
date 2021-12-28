@@ -61,6 +61,7 @@ public class UserAccount {
         this.password = password;
     }
 
+
     @Column(name = "nom", nullable = false, length = 50)
     public String getNom() {
         return nom;

@@ -45,11 +45,11 @@
                         <form method="POST" action="">
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="emailLogged" name="emailLogged">
+                                <input type="text" class="form-control" id="emailLogged" name="emailLogged" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Mot de passe <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="passwordLogged" name="passwordLogged">
+                                <input type="password" class="form-control" id="passwordLogged" name="passwordLogged" required="required">
                             </div>
 
                             <hr>

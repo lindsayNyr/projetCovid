@@ -12,6 +12,18 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.getWriter().println("Hello world");
+
+        String resultat = "" ;
+        String name = request.getParameter("nameRegister");
+
+
+        if(name.equals("")){
+            request.setAttribute("error", resultat);
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+        }
+
+
+
+        response.getWriter().println("register.jsp");
     }
 }

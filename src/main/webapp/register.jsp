@@ -40,28 +40,37 @@
                         <p class="text-center text-muted">Si vous avez déjà un compte connectez vous <a href="logged.jsp">ici</a>  </p>
                         <hr>
 
+                        <% if(request.getAttribute("error") != null) {%>
+                        <div class="error">
+                            <span class="error">
+                            Une erreur a été rencontrée: <%=request.getAttribute("error")%>
+                            </span>
+                        </div>
+
+
+                        <%}%>
                         <form method="POST" action="${pageContext.request.contextPath}/register">
                             <div class="top-margin">
                                 <label>Nom</label>
-                                <input type="text" class="form-control" id="nameRegister" name="nameRegister">
+                                <input type="text" class="form-control" id="nameRegister" name="nameRegister" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Prénom</label>
-                                <input type="text" class="form-control" id="firstNameRegister" name="firstNameRegister">
+                                <input type="text" class="form-control" id="firstNameRegister" name="firstNameRegister" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="emailRegister" name="emailRegister">
+                                <input type="text" class="form-control" id="emailRegister" name="emailRegister" required="required">
                             </div>
 
                             <div class="row top-margin">
                                 <div class="col-sm-6">
                                     <label>Mot de passe <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="passwordRegister" name="passwordRegister">
+                                    <input type="password" class="form-control" id="passwordRegister" name="passwordRegister" required="required">
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Confirmer le mot de passe <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="passwordConfirmRegister" name="passwordConfirmRegister">
+                                    <input type="password" class="form-control" id="passwordConfirmRegister" name="passwordConfirmRegister" required="required">
                                 </div>
                             </div>
 
