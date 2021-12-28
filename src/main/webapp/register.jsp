@@ -40,7 +40,7 @@
                         <p class="text-center text-muted">Si vous avez déjà un compte connectez vous <a href="logged.jsp">ici</a>  </p>
                         <hr>
 
-                        <form method="POST" action="">
+                        <form method="POST" action="${pageContext.request.contextPath}/register">
                             <div class="top-margin">
                                 <label>Nom</label>
                                 <input type="text" class="form-control" id="nameRegister" name="nameRegister">

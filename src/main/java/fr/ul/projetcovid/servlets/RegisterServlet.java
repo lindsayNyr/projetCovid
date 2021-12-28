@@ -11,6 +11,7 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         response.getWriter().println("Hello world");
     }
 }
