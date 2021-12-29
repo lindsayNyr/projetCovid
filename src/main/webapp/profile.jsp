@@ -11,7 +11,7 @@
 <html>
 <head>
     <%@include  file="html/head.html" %>
-    <title>inscription</title>
+    <title>Profil</title>
 </head>
 <body>
 <%@include  file="navbar.jsp" %>
@@ -30,14 +30,13 @@
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
-                <h1 class="page-title">Inscription</h1>
+                <h1 class="page-title">Profil</h1>
             </header>
 
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <h3 class="thin text-center">Enregistrer un nouveau compte</h3>
-                        <p class="text-center text-muted">Si vous avez déjà un compte connectez vous <a href="logged.jsp">ici</a>  </p>
+                        <h3 class="thin text-center">Modifier votre profil</h3>
                         <hr>
 
                         <% if(request.getAttribute("error") != null) {%>
@@ -48,22 +47,22 @@
                         </div>
                         <%}%>
 
-                        <form method="POST" action="${pageContext.request.contextPath}/register">
+                        <form method="POST" action="${pageContext.request.contextPath}/profile">
                             <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required="required">
+                                <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= session.getAttribute("lastName")%>">
                             </div>
                             <div class="top-margin">
                                 <label>Prénom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required="required">
+                                <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="<%= session.getAttribute("firstName")%>">
                             </div>
                             <div class="top-margin">
                                 <label>Date de Naissance <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="dateBirth" name="dateBirth" required="required">
+                                <input type="date" class="form-control" id="dateBirth" name="dateBirth" required="required"  value="<%= session.getAttribute("dateBrith")%>">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required="required">
+                                <input type="text" class="form-control" id="email" name="email" required="required" value="<%= session.getAttribute("email")%>">
                             </div>
 
                             <div class="row top-margin">
@@ -82,7 +81,7 @@
                             <div class="row">
 
                                 <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Inscription</button>
+                                    <button class="btn btn-action" type="submit">Enregistrer</button>
                                 </div>
                             </div>
                         </form>

@@ -18,10 +18,15 @@
                         <li class="active"><a href="sidebar-right.html">Right Sidebar</a></li>
                     </ul>
                 </li>
-                <li><a href="notif.jsp">Notification</a></li>
+
+
                 <%if (session.getAttribute("id") == null) {%>
+
                         <li><a class="btn" href="logged.jsp">SE CONNECTER</a></li>
                 <%}else{%>
+                        <li><a href="friends.jsp">Amis</a></li>
+                        <li><a href="notif.jsp">Notification</a></li>
+                        <li><a href="profile.jsp">Profil</a></li>
                         <li><a class="btn" href="${pageContext.request.contextPath}/logout">SE DECONNECTER</a></li>
                 <% }%>
 

@@ -26,7 +26,7 @@
       <%if (session.getAttribute("id") == null) {%>
         <h1 class="lead">BIENVENUE</h1>
       <%}else{%>
-        <h1 class="lead">Hello, <%= session.getAttribute("name") %> </h1>
+        <h1 class="lead">Hello, <%= session.getAttribute("firstName") %> </h1>
       <%}%>
 
       <p class="tagline">PROGRESSUS: free business bootstrap template by <a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a></p>
