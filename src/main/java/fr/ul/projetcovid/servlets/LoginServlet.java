@@ -40,9 +40,15 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        Cookie c = new Cookie("user", acc.getId());
+        HttpSession session = request.getSession();
+        session.setAttribute("id", acc.getId());
+        session.setAttribute("firstName", acc.getNom());
+        session.setAttribute("name", acc.getPrenom());
+
+
+      /*  Cookie c = new Cookie("user", acc.getId());
         c.setMaxAge(-1);
-        response.addCookie(c);
+        response.addCookie(c);*/
         response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
 }

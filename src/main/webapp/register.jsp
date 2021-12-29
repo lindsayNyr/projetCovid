@@ -14,7 +14,7 @@
     <title>inscription</title>
 </head>
 <body>
-<%@include  file="html/navbar.html" %>
+<%@include  file="navbar.jsp" %>
 <header id="head" class="secondary"></header>
 
 <!-- container -->

@@ -18,7 +18,7 @@
 
 <body class="home">
 <!-- navbar -->
-<%@include  file="html/navbar.html" %>
+<%@include  file="navbar.jsp" %>
 <header id="head" class="secondary"></header>
 <div class="container">
 

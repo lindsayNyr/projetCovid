@@ -11,7 +11,7 @@ import java.util.Optional;
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cookie[] cs = request.getCookies();
+       /* Cookie[] cs = request.getCookies();
         Optional<Cookie> user = Arrays.stream(cs)
                 .filter(c -> c.getName().equals("user"))
                 .findFirst();
@@ -25,6 +25,20 @@ public class LogoutServlet extends HttpServlet {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
+
+
+        response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");*/
+
     }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
+
+    }
+
+
+
 }

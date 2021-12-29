@@ -19,7 +19,12 @@
                     </ul>
                 </li>
                 <li><a href="notif.jsp">Notification</a></li>
-                <li><a class="btn" href="logged.jsp">SE CONNECTER</a></li>
+                <%if (session.getAttribute("id") == null) {%>
+                        <li><a class="btn" href="logged.jsp">SE CONNECTER</a></li>
+                <%}else{%>
+                        <li><a class="btn" href="${pageContext.request.contextPath}/logout">SE DECONNECTER</a></li>
+                <% }%>
+
             </ul>
         </div><!--/.nav-collapse -->
     </div>
