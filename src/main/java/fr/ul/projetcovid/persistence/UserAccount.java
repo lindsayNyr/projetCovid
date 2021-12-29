@@ -3,37 +3,33 @@ package fr.ul.projetcovid.persistence;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Date;
 
 @Entity
-@Table(
-        name = "user",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = { "login", "id" })
-        }
-)
+@Table(name = "user", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"id"}),
+        @UniqueConstraint(columnNames = {"login"})
+})
 public class UserAccount {
-    private String id;
-    private String login;
-    private String password;
-    private String nom;
-    private String prenom;
-    private Date naissance;
-
-    public UserAccount() {}
-    public UserAccount(String id, String login, String password, String nom, String prenom, Date naissance) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.naissance = naissance;
-    }
-
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "id", nullable = false, length = 36)
+    private String id;
+    @Email
+    @Column(name = "login", nullable = false, length = 50)
+    private String login;
+    @Column(name = "password", nullable = false, length = 256)
+    private String password;
+    @Column(name = "nom", nullable = false, length = 50)
+    private String nom;
+    @Column(name = "prenom", nullable = false, length = 50)
+    private String prenom;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "naissance", nullable = false)
+    private Date naissance;
+
     public String getId() {
         return id;
     }
@@ -42,8 +38,6 @@ public class UserAccount {
         this.id = id;
     }
 
-    @Id
-    @Column(name = "login", nullable = false, length = 50)
     public String getLogin() {
         return login;
     }
@@ -52,7 +46,6 @@ public class UserAccount {
         this.login = login;
     }
 
-    @Column(name = "password", nullable = false, length = 256)
     public String getPassword() {
         return password;
     }
@@ -61,8 +54,6 @@ public class UserAccount {
         this.password = password;
     }
 
-
-    @Column(name = "nom", nullable = false, length = 50)
     public String getNom() {
         return nom;
     }
@@ -71,7 +62,6 @@ public class UserAccount {
         this.nom = nom;
     }
 
-    @Column(name = "prenom", nullable = false, length = 50)
     public String getPrenom() {
         return prenom;
     }
@@ -80,8 +70,6 @@ public class UserAccount {
         this.prenom = prenom;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "naissance", nullable = false)
     public Date getNaissance() {
         return naissance;
     }
