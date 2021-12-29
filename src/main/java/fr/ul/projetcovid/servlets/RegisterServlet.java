@@ -4,39 +4,25 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import fr.ul.projetcovid.persistence.UserAccount;
 
-import javax.annotation.ManagedBean;
-import javax.annotation.Resource;
-import javax.ejb.Stateless;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import javax.transaction.*;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Set;
 
+import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
 
 @WebServlet(value = "/register")
 public final class RegisterServlet extends HttpServlet {
-    @PersistenceContext(unitName = "default")
-    private EntityManager em;
-
     @Override
-    @Transactional
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        java.util.Objects.requireNonNull(this.em);
-
         // Request takes:
         // - lastname
         // - firstname
@@ -55,6 +41,7 @@ public final class RegisterServlet extends HttpServlet {
         account.setNom(lastname);
         account.setPrenom(firstname);
         account.setPassword(password);
+        account.setNaissance(new Date());
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -88,9 +75,10 @@ public final class RegisterServlet extends HttpServlet {
             argon2id.wipeArray(password.toCharArray());
         }
 
-        this.em.getTransaction().begin();
-        this.em.persist(account);
-        this.em.getTransaction().commit();
+        UserAccountDAO dao = new UserAccountDAO();
+        dao.setAccount(account);
+        dao.save();
+
         response.getWriter().println(Json.createObjectBuilder().build().toString());
     }
 }
