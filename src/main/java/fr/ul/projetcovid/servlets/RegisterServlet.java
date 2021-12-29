@@ -4,8 +4,6 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import fr.ul.projetcovid.persistence.UserAccount;
 
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -18,8 +16,9 @@ import java.util.Set;
 
 import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
+import org.apache.commons.text.StringEscapeUtils;
 
-@WebServlet(value = "/register")
+@WebServlet(name = "RegisterPOST", value = "/register")
 public final class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,9 +37,10 @@ public final class RegisterServlet extends HttpServlet {
 
         final UserAccount account = new UserAccount();
         account.setLogin(email);
-        account.setNom(lastname);
-        account.setPrenom(firstname);
+        account.setNom(StringEscapeUtils.escapeHtml4(lastname));
+        account.setPrenom(StringEscapeUtils.escapeHtml4(firstname));
         account.setPassword(password);
+        // TODO
         account.setNaissance(new Date());
 
         response.setContentType("application/json");
@@ -82,7 +82,6 @@ public final class RegisterServlet extends HttpServlet {
 
         // set cookie to UUID
         response.addCookie(new Cookie("user", account.getId()));
-
-        response.sendRedirect("/index.jsp");
+        response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
 }

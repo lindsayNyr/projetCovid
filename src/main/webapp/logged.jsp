@@ -42,14 +42,22 @@
                         <p class="text-center text-muted">Si vous n'avez pas de compte cliquez  <a href="register.jsp">ici</a> pour effectuer votre inscription  </p>
                         <hr>
 
-                        <form method="POST" action="">
+                        <% if(request.getAttribute("error") != null) {%>
+                        <div class="error">
+                            <span class="error">
+                            Une erreur a été rencontrée: <%=request.getAttribute("error")%>
+                            </span>
+                        </div>
+                        <%}%>
+
+                        <form method="POST" action="${pageContext.request.contextPath}/login">
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="emailLogged" name="emailLogged" required="required">
+                                <input type="text" class="form-control" id="email" name="email" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Mot de passe <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="passwordLogged" name="passwordLogged" required="required">
+                                <input type="password" class="form-control" id="password" name="password" required="required">
                             </div>
 
                             <hr>

@@ -46,9 +46,8 @@
                             Une erreur a été rencontrée: <%=request.getAttribute("error")%>
                             </span>
                         </div>
-
-
                         <%}%>
+
                         <form method="POST" action="${pageContext.request.contextPath}/register">
                             <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
