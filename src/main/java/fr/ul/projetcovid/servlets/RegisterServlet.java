@@ -49,21 +49,17 @@ public final class RegisterServlet extends HttpServlet {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         final Set<ConstraintViolation<UserAccount>> violations = validator.validate(account);
         if (!violations.isEmpty()) {
-            final JsonObjectBuilder builder = Json.createObjectBuilder();
-            builder.add("error", "validation_failed");
-            final JsonObjectBuilder builder2 = Json.createObjectBuilder();
+            StringBuilder sb = new StringBuilder();
             for (final ConstraintViolation<UserAccount> violation : violations)
-                builder2.add(violation.getPropertyPath().toString(), violation.getMessage());
-            builder.add("messages", builder2.build());
-            response.getWriter().println(builder.build().toString());
+                sb.append(violation.getMessage()).append("\n");
+            request.setAttribute("error", sb.toString());
+            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
             return;
         }
 
         if (!password.equals(passwordConfirm)) {
-            final JsonObjectBuilder builder = Json.createObjectBuilder();
-            builder.add("error", "password_confirmation_failed");
-            builder.add("messages", Json.createObjectBuilder().add("password-confirm", "La confirmation du mot de passe ne correspond pas au mot de passe"));
-            response.getWriter().println(builder.build().toString());
+            request.setAttribute("error", "La confirmation du mot de passe ne correspond pas au mot de passe");
+            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
             return;
         }
 
@@ -77,15 +73,16 @@ public final class RegisterServlet extends HttpServlet {
 
         UserAccountDAO dao = new UserAccountDAO();
         if (dao.get(account.getLogin()).isPresent()) {
-            final JsonObjectBuilder builder = Json.createObjectBuilder();
-            builder.add("error", "already_exists");
-            builder.add("messages", Json.createObjectBuilder().add("email", "Un utilisateur existe déjà avec cet email"));
-            response.getWriter().println(builder.build().toString());
+            request.setAttribute("error",  "Un utilisateur existe déjà avec cet email");
+            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
             return;
         }
 
         dao.save(account);
 
-        response.getWriter().println(Json.createObjectBuilder().build().toString());
+        // set cookie to UUID
+        response.addCookie(new Cookie("user", account.getId()));
+
+        response.sendRedirect("/index.jsp");
     }
 }
