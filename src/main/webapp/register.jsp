@@ -51,26 +51,26 @@
                         <%}%>
                         <form method="POST" action="${pageContext.request.contextPath}/register">
                             <div class="top-margin">
-                                <label>Nom</label>
-                                <input type="text" class="form-control" id="nameRegister" name="nameRegister" required="required">
+                                <label>Nom <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="lastname" name="lastname" required="required">
                             </div>
                             <div class="top-margin">
-                                <label>Prénom</label>
-                                <input type="text" class="form-control" id="firstNameRegister" name="firstNameRegister" required="required">
+                                <label>Prénom <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="firstname" name="firstname" required="required">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="emailRegister" name="emailRegister" required="required">
+                                <input type="text" class="form-control" id="email" name="email" required="required">
                             </div>
 
                             <div class="row top-margin">
                                 <div class="col-sm-6">
                                     <label>Mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="passwordRegister" name="passwordRegister" required="required">
+                                    <input type="password" class="form-control" id="password" name="password" required="required">
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Confirmer le mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="passwordConfirmRegister" name="passwordConfirmRegister" required="required">
+                                    <input type="password" class="form-control" id="password-confirm" name="password-confirm" required="required">
                                 </div>
                             </div>
 

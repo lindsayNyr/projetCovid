@@ -1,15 +1,15 @@
 package fr.ul.projetcovid.persistence;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "is_admin")
-public class IsAdmin {
+public class IsAdmin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "account_id")
     private UserAccount account;

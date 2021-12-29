@@ -3,7 +3,8 @@ package fr.ul.projetcovid.persistence;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -11,21 +12,25 @@ import java.util.Date;
         @UniqueConstraint(columnNames = {"id"}),
         @UniqueConstraint(columnNames = {"login"})
 })
-public class UserAccount {
+public class UserAccount implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Column(name = "id", nullable = false, length = 36)
     private String id;
-    @Email
+    @Email(message = "Email invalide")
+    @NotBlank(message = "Email ne peut pas être vide")
     @Column(name = "login", nullable = false, length = 50)
     private String login;
     @Column(name = "password", nullable = false, length = 256)
     private String password;
+    @NotBlank(message = "Nom ne peut pas être vide")
     @Column(name = "nom", nullable = false, length = 50)
     private String nom;
+    @NotBlank(message = "Prénom ne peut pas être vide")
     @Column(name = "prenom", nullable = false, length = 50)
     private String prenom;
+    @Past
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;

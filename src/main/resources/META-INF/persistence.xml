@@ -8,6 +8,7 @@
         <class>fr.ul.projetcovid.persistence.IsAdmin</class>
 
         <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="javax.persistence.jdbc.driver" value="${dataSource.project.driverClass}"/>
             <property name="javax.persistence.jdbc.url" value="${dataSource.project.jdbcURL}"/>
             <property name="javax.persistence.jdbc.user" value="${dataSource.project.database.username}"/>
