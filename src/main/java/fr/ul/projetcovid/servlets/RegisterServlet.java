@@ -76,8 +76,15 @@ public final class RegisterServlet extends HttpServlet {
         }
 
         UserAccountDAO dao = new UserAccountDAO();
-        dao.setAccount(account);
-        dao.save();
+        if (dao.get(account.getLogin()).isPresent()) {
+            final JsonObjectBuilder builder = Json.createObjectBuilder();
+            builder.add("error", "already_exists");
+            builder.add("messages", Json.createObjectBuilder().add("email", "Un utilisateur existe déjà avec cet email"));
+            response.getWriter().println(builder.build().toString());
+            return;
+        }
+
+        dao.save(account);
 
         response.getWriter().println(Json.createObjectBuilder().build().toString());
     }
