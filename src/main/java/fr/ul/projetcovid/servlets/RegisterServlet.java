@@ -81,7 +81,9 @@ public final class RegisterServlet extends HttpServlet {
         dao.save(account);
 
         // set cookie to UUID
-        response.addCookie(new Cookie("user", account.getId()));
+        Cookie c = new Cookie("user", account.getId());
+        c.setMaxAge(-1);
+        response.addCookie(c);
         response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
 }

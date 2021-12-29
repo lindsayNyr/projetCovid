@@ -40,7 +40,9 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        response.addCookie(new Cookie("user", acc.getId()));
+        Cookie c = new Cookie("user", acc.getId());
+        c.setMaxAge(-1);
+        response.addCookie(c);
         response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
 }
