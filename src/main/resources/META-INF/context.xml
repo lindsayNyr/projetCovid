@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Context>
-    <Environment name="database/host" type="java.lang.String" value="localhost" override="false" />
-    <Environment name="database/port" type="java.lang.Integer" value="3306" override="false"/>
-    <Environment name="database/username" type="java.lang.String" value="root" />
-    <Environment name="database/password" type="java.lang.String" value="root" />
-</Context>
