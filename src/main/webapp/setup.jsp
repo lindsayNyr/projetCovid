@@ -1,4 +1,4 @@
-<%@ page import="fr.ul.projetcovid.main.GenerateDatabaseSchema" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: mesabloo
   Date: 12/28/21
@@ -11,8 +11,6 @@
     <title>Setup</title>
 </head>
 <body>
-
-<% GenerateDatabaseSchema.main(new String[] {}); %>
 
 </body>
 </html>
