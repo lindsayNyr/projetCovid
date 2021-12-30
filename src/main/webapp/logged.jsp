@@ -12,7 +12,7 @@
 <!-- head -->
 <head>
 <%@include  file="html/head.html" %>
-    <title>connection</title>
+    <title>connexion</title>
 
 </head>
 
@@ -24,7 +24,7 @@
 
     <ol class="breadcrumb">
         <li><a href="index.html">Home</a></li>
-        <li class="active">Connection</li>
+        <li class="active">Connexion</li>
     </ol>
 
     <div class="row">
