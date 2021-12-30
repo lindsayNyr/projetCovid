@@ -11,7 +11,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.io.IOException;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Set;
 
 import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
@@ -28,12 +29,14 @@ public final class RegisterServlet extends HttpServlet {
         // - email
         // - password
         // - password-confirm
+        // - birthdate
 
         final String lastname = Objects.nonNullOrElse(request.getParameter("lastname"), "");
         final String firstname = Objects.nonNullOrElse(request.getParameter("firstname"), "");
         final String email = Objects.nonNullOrElse(request.getParameter("email"), "");
         final String password = Objects.nonNullOrElse(request.getParameter("password"), "");
         final String passwordConfirm = Objects.nonNullOrElse(request.getParameter("password-confirm"), "");
+        final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
 
         final UserAccount account = new UserAccount();
         account.setLogin(email);
@@ -41,7 +44,13 @@ public final class RegisterServlet extends HttpServlet {
         account.setPrenom(StringEscapeUtils.escapeHtml4(firstname));
         account.setPassword(password);
         // TODO
-        account.setNaissance(new Date());
+        try {
+            account.setNaissance(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
+        } catch (ParseException e) {
+            request.setAttribute("error", "Date invalide???");
+            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+        }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");

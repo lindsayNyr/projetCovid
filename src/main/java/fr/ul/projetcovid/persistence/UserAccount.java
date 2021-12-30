@@ -34,7 +34,7 @@ public class UserAccount implements Serializable {
     @NotBlank(message = "Prénom ne peut pas être vide")
     @Column(name = "prenom", nullable = false, length = 50)
     private String prenom;
-    @Past
+    @Past(message = "La date de naissance doit être antérieure à aujourd'hui")
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;

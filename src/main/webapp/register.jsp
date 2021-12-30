@@ -1,4 +1,5 @@
-<%@ page import="javax.naming.InitialContext" %><%--
+<%@ page import="javax.naming.InitialContext" %>
+<%@ page import="javaf.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/27/21
@@ -43,7 +44,7 @@
                         <% if(request.getAttribute("error") != null) {%>
                         <div class="error">
                             <span class="error">
-                            Une erreur a été rencontrée: <%=request.getAttribute("error")%>
+                            Une erreur a été rencontrée : <%=request.getAttribute("error")%>
                             </span>
                         </div>
                         <%}%>
@@ -51,19 +52,19 @@
                         <form method="POST" action="${pageContext.request.contextPath}/register">
                             <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required="required">
+                                <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("lastname"), "") %>">
                             </div>
                             <div class="top-margin">
                                 <label>Prénom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required="required">
+                                <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("firstname"), "") %>">
                             </div>
                             <div class="top-margin">
                                 <label>Date de Naissance <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="dateBirth" name="dateBirth" required="required">
+                                <input type="date" class="form-control" id="birthdate" name="birthdate" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("birthdate"), "") %>">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required="required">
+                                <input type="text" class="form-control" id="email" name="email" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("email"), "") %>">
                             </div>
 
                             <div class="row top-margin">
