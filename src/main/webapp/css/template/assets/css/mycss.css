@@ -6,3 +6,17 @@
     text-decoration-color: red;
 
 }
+
+.formFriend {
+
+    height: 40px;
+    text-align: center;
+    vertical-align: center;
+    horiz-align: center;
+
+}
+
+.center{
+    align-content: center;
+}
+
