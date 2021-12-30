@@ -4,6 +4,7 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import fr.ul.projetcovid.persistence.UserAccount;
 
+import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -21,6 +22,8 @@ import org.apache.commons.text.StringEscapeUtils;
 
 @WebServlet(name = "RegisterPOST", value = "/register")
 public final class RegisterServlet extends HttpServlet {
+    private final UserAccountDAO dao = new UserAccountDAO();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Request takes:
@@ -77,7 +80,6 @@ public final class RegisterServlet extends HttpServlet {
             argon2id.wipeArray(password.toCharArray());
         }
 
-        UserAccountDAO dao = new UserAccountDAO();
         if (dao.getByLogin(account.getLogin()).isPresent()) {
             request.setAttribute("error",  "Un utilisateur existe déjà avec cet email");
             getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);

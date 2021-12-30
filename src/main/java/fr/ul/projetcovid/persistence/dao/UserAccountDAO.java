@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Stateless
-public class UserAccountDAO {
+public final class UserAccountDAO {
     private final EntityManager em = Persistence.createEntityManagerFactory("default").createEntityManager();
 
     @Inject
@@ -29,9 +29,9 @@ public class UserAccountDAO {
 
     @Transactional
     public Optional<UserAccount> getByLogin(final String login) {
-        Query query = em.createNamedQuery("UserAccount.findByLogin", UserAccount.class);
+        final Query query = em.createNamedQuery("UserAccount.findByLogin", UserAccount.class);
         query.setParameter("login", login);
-        List<?> accounts = query.getResultList();
+        final List<?> accounts = query.getResultList();
         return Optional.ofNullable(accounts.isEmpty() ? null : (UserAccount) accounts.get(0));
     }
 

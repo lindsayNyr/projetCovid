@@ -8,6 +8,8 @@
 
         <class>fr.ul.projetcovid.persistence.UserAccount</class>
         <class>fr.ul.projetcovid.persistence.IsAdmin</class>
+        <class>fr.ul.projetcovid.persistence.FriendsId</class>
+        <class>fr.ul.projetcovid.persistence.Friends</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>

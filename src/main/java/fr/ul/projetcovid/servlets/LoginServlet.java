@@ -6,6 +6,7 @@ import fr.ul.projetcovid.persistence.UserAccount;
 import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
 
+import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -14,6 +15,8 @@ import java.util.Optional;
 
 @WebServlet(name = "LoginPOST", value = "/login")
 public class LoginServlet extends HttpServlet {
+    private final UserAccountDAO dao = new UserAccountDAO();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Parameters
@@ -23,8 +26,7 @@ public class LoginServlet extends HttpServlet {
         final String email = Objects.nonNullOrElse(request.getParameter("email"), "");
         final String password = Objects.nonNullOrElse(request.getParameter("password"), "");
 
-        UserAccountDAO accountDAO = new UserAccountDAO();
-        Optional<UserAccount> account = accountDAO.getByLogin(email);
+        Optional<UserAccount> account = dao.getByLogin(email);
         if (!account.isPresent() || password.isEmpty()) {
             request.setAttribute("error", "Email ou mot de passe invalide");
             getServletContext().getRequestDispatcher("/logged.jsp").forward(request, response);

@@ -37,4 +37,17 @@
         </createTable>
         <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="is_admin" constraintName="FK_IS_ADMIN_ON_ACCOUNT" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
+    <changeSet id="1640883340327-1" author="mesabloo">
+        <createTable tableName="friends">
+            <column name="id1" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friends"/>
+            </column>
+            <column name="id2" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friends"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="id1, id2" constraintName="uc_840c9df030924d968669c0d61" tableName="friends"/>
+        <addForeignKeyConstraint baseColumnNames="id1" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID1" referencedColumnNames="id" referencedTableName="user"/>
+        <addForeignKeyConstraint baseColumnNames="id2" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID2" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
 </databaseChangeLog>

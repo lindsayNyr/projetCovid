@@ -1,4 +1,9 @@
-<%--
+<%@ page import="fr.ul.projetcovid.persistence.UserAccount" %>
+<%@ page import="java.util.List" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.FriendsDAO" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.UserAccountDAO" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -54,42 +59,36 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <%
+                    String userId = (String) session.getAttribute("id");
+                    if (userId == null) {
+                        response.sendError(403);
+                        return;
+                    }
+
+                    Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(userId);
+                    if (!maybeMyself.isPresent()) {
+                        response.sendError(403);
+                        return;
+                    }
+
+                    UserAccount myself = maybeMyself.get();
+                    List<UserAccount> friends = new FriendsDAO().friendsOf(myself);
+
+                    for (UserAccount friend : friends) {
+                %>
                 <tr>
-                    <th scope="row">Noyer</th>
-                    <td>Lindsay</td>
-                    <td>06/12/1999</td>
-                    <td>lindsay.noyer@icloud.com</td>
+                    <th scope="row"><%= friend.getNom() %></th>
+                    <td><%= friend.getPrenom() %></td>
+                    <td><%= new SimpleDateFormat("dd/MM/yyyy").format(friend.getNaissance()) %></td>
+                    <td><%= friend.getLogin() %></td>
                     <td>
                         <btn href="#" class="btn btn-danger btn-lg">Supprimer</btn>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">Noyer</th>
-                    <td>Lindsay</td>
-                    <td>06/12/1999</td>
-                    <td>lindsay.noyer@icloud.com</td>
-                    <td>
-                        <btn href="#" class="btn btn-danger btn-lg">Supprimer</btn>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Noyer</th>
-                    <td>Lindsay</td>
-                    <td>06/12/1999</td>
-                    <td>lindsay.noyer@icloud.com</td>
-                    <td>
-                        <btn href="#" class="btn btn-danger btn-lg">Supprimer</btn>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">user1</th>
-                    <td>user1</td>
-                    <td>03/06/1997</td>
-                    <td>user1.user1@icloud.com</td>
-                    <td>
-                        <btn href="#" class="btn btn-danger btn-lg">Supprimer</btn>
-                    </td>
-                </tr>
+                <% }
+                %>
 
                 </tbody>
             </table>

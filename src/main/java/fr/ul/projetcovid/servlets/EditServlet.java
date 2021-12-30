@@ -7,6 +7,7 @@ import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
 import org.apache.commons.text.StringEscapeUtils;
 
+import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -20,6 +21,8 @@ import java.util.Set;
 
 @WebServlet(name = "EditPOST", value = "/edit")
 public class EditServlet extends HttpServlet {
+    private final UserAccountDAO dao = new UserAccountDAO();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Request takes:
@@ -36,8 +39,6 @@ public class EditServlet extends HttpServlet {
         final String password = Objects.nonNullOrElse(request.getParameter("password"), "");
         final String passwordConfirm = Objects.nonNullOrElse(request.getParameter("password-confirm"), "");
         final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
-
-        UserAccountDAO dao = new UserAccountDAO();
 
         HttpSession session = request.getSession();
         String userId;

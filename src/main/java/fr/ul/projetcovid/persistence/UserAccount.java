@@ -5,7 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user", uniqueConstraints = {
@@ -38,6 +41,13 @@ public class UserAccount implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "friends",
+            joinColumns = @JoinColumn(name = "id1"),
+            inverseJoinColumns = @JoinColumn(name = "id2")
+    )
+    private List<UserAccount> friends = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -85,5 +95,18 @@ public class UserAccount implements Serializable {
 
     public void setNaissance(Date naissance) {
         this.naissance = naissance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserAccount that = (UserAccount) o;
+        return Objects.equals(id, that.id) && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(nom, that.nom) && Objects.equals(prenom, that.prenom) && Objects.equals(naissance, that.naissance) && Objects.equals(friends, that.friends);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, nom, prenom, naissance, friends);
     }
 }
