@@ -60,7 +60,7 @@
                         </div>
                         <%}%>
 
-                        <form method="POST" action="${pageContext.request.contextPath}/profile">
+                        <form method="POST" action="${pageContext.request.contextPath}/edit">
                             <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= account.getNom() %>">
@@ -71,7 +71,7 @@
                             </div>
                             <div class="top-margin">
                                 <label>Date de Naissance <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="dateBirth" name="dateBirth" required="required"  value="<%= new SimpleDateFormat("yyyy-MM-dd").format(account.getNaissance()) %>">
+                                <input type="date" class="form-control" id="birthdate" name="birthdate" required="required"  value="<%= new SimpleDateFormat("yyyy-MM-dd").format(account.getNaissance()) %>">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
@@ -81,11 +81,11 @@
                             <div class="row top-margin">
                                 <div class="col-sm-6">
                                     <label>Mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="password" name="password" required="required">
+                                    <input type="password" class="form-control" id="password" name="password">
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Confirmer le mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="password-confirm" name="password-confirm" required="required">
+                                    <input type="password" class="form-control" id="password-confirm" name="password-confirm">
                                 </div>
                             </div>
 

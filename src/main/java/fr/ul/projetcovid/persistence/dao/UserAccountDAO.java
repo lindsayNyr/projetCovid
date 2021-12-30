@@ -37,9 +37,24 @@ public class UserAccountDAO {
 
     @Transactional
     public Optional<UserAccount> getById(final String id) {
-        Query query = em.createNamedQuery("UserAccount.findById", UserAccount.class);
-        query.setParameter("id", id);
-        List<?> accounts = query.getResultList();
-        return Optional.ofNullable(accounts.isEmpty() ? null : (UserAccount) accounts.get(0));
+        final UserAccount account = em.find(UserAccount.class, id);
+        return Optional.ofNullable(account);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    @Transactional
+    public UserAccount update(final UserAccount account) {
+        final UserAccount account2 = em.getReference(UserAccount.class, account.getId());
+        assert account2 != null;
+
+        em.getTransaction().begin();
+        account2.setLogin(account.getLogin());
+        account2.setPrenom(account.getPrenom());
+        account2.setNom(account.getNom());
+        account2.setNaissance(account.getNaissance());
+        account2.setPassword(account.getPassword());
+        em.getTransaction().commit();
+
+        return account2;
     }
 }

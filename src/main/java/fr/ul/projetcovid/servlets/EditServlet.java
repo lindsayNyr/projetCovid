@@ -3,6 +3,9 @@ package fr.ul.projetcovid.servlets;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import fr.ul.projetcovid.persistence.UserAccount;
+import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
+import javaf.util.Objects;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,12 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 
-import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
-import javaf.util.Objects;
-import org.apache.commons.text.StringEscapeUtils;
-
-@WebServlet(name = "RegisterPOST", value = "/register")
-public final class RegisterServlet extends HttpServlet {
+@WebServlet(name = "EditPOST", value = "/edit")
+public class EditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Request takes:
@@ -38,17 +37,28 @@ public final class RegisterServlet extends HttpServlet {
         final String passwordConfirm = Objects.nonNullOrElse(request.getParameter("password-confirm"), "");
         final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
 
-        final UserAccount account = new UserAccount();
+        UserAccountDAO dao = new UserAccountDAO();
+
+        HttpSession session = request.getSession();
+        String userId;
+        if (java.util.Objects.isNull((userId = (String) session.getAttribute("id")))) {
+            response.sendError(403);
+            return;
+        }
+
+        @SuppressWarnings("OptionalGetWithoutIsPresent")
+        UserAccount account = dao.getById(userId).get();
+
+        final String oldLogin = account.getLogin();
+
+        account.setNom(lastname);
+        account.setPrenom(firstname);
         account.setLogin(email);
-        account.setNom(StringEscapeUtils.escapeHtml4(lastname));
-        account.setPrenom(StringEscapeUtils.escapeHtml4(firstname));
-        account.setPassword(password);
-        // TODO
         try {
             account.setNaissance(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
         } catch (ParseException e) {
             request.setAttribute("error", "Date invalide???");
-            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
             return;
         }
 
@@ -59,34 +69,36 @@ public final class RegisterServlet extends HttpServlet {
             for (final ConstraintViolation<UserAccount> violation : violations)
                 sb.append(violation.getMessage()).append("\n");
             request.setAttribute("error", sb.toString());
-            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
             return;
         }
 
-        if (!password.equals(passwordConfirm)) {
-            request.setAttribute("error", "La confirmation du mot de passe ne correspond pas au mot de passe");
-            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
-            return;
+        if (!password.isEmpty() && !passwordConfirm.isEmpty()) {
+            if (!password.equals(passwordConfirm)) {
+                request.setAttribute("error", "La confirmation du mot de passe ne correspond pas au mot de passe");
+                getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
+                return;
+            }
+
+            Argon2 argon2id = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+            try {
+                String hash = argon2id.hash(10, 65536, 1, password.toCharArray());
+                account.setPassword(hash);
+            } finally {
+                argon2id.wipeArray(password.toCharArray());
+            }
         }
 
-        Argon2 argon2id = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        try {
-            String hash = argon2id.hash(10, 65536, 1, password.toCharArray());
-            account.setPassword(hash);
-        } finally {
-            argon2id.wipeArray(password.toCharArray());
-        }
-
-        UserAccountDAO dao = new UserAccountDAO();
-        if (dao.getByLogin(account.getLogin()).isPresent()) {
+        if (!oldLogin.equals(email) && dao.getByLogin(account.getLogin()).isPresent()) {
             request.setAttribute("error",  "Un utilisateur existe déjà avec cet email");
-            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
             return;
         }
 
-        dao.save(account);
-        HttpSession session = request.getSession();
-        session.setAttribute("id", account.getId());
+        dao.update(account);
+        if (!oldLogin.equals(email)) {
+            session.removeAttribute("id");
+        }
 
         response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
