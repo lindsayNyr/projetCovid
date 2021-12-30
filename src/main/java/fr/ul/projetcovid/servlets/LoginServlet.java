@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
         final String password = Objects.nonNullOrElse(request.getParameter("password"), "");
 
         UserAccountDAO accountDAO = new UserAccountDAO();
-        Optional<UserAccount> account = accountDAO.get(email);
+        Optional<UserAccount> account = accountDAO.getByLogin(email);
         if (!account.isPresent() || password.isEmpty()) {
             request.setAttribute("error", "Email ou mot de passe invalide");
             getServletContext().getRequestDispatcher("/logged.jsp").forward(request, response);
@@ -42,16 +42,7 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setAttribute("id", acc.getId());
-        session.setAttribute("lastName", acc.getNom());
-        session.setAttribute("firstName", acc.getPrenom());
-        session.setAttribute("email", acc.getLogin());
-        session.setAttribute("dateBirth", acc.getNaissance());
 
-
-
-      /*  Cookie c = new Cookie("user", acc.getId());
-        c.setMaxAge(-1);
-        response.addCookie(c);*/
         response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
 }

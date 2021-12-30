@@ -13,7 +13,8 @@ import java.util.Date;
         @UniqueConstraint(columnNames = {"login"})
 })
 @NamedQueries({
-        @NamedQuery(name = "UserAccount.findAll", query = "select u from UserAccount u where u.login = :login")
+        @NamedQuery(name = "UserAccount.findByLogin", query = "select u from UserAccount u where u.login = :login"),
+        @NamedQuery(name = "UserAccount.findById", query = "select u from UserAccount u where u.id = :id")
 })
 public class UserAccount implements Serializable {
     @Id

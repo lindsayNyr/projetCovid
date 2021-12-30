@@ -1,4 +1,8 @@
-<%@ page import="javax.naming.InitialContext" %><%--
+<%@ page import="javax.naming.InitialContext" %>
+<%@ page import="fr.ul.projetcovid.persistence.UserAccount" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.UserAccountDAO" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/27/21
@@ -7,6 +11,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- head -->
+
+<%
+    Optional<UserAccount> acc = new UserAccountDAO().getById((String) session.getAttribute("id"));
+    if (!acc.isPresent()) {
+        response.sendError(403);
+        return;
+    }
+    UserAccount account = acc.get();
+%>
 
 <html>
 <head>
@@ -50,19 +63,19 @@
                         <form method="POST" action="${pageContext.request.contextPath}/profile">
                             <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= session.getAttribute("lastName")%>">
+                                <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= account.getNom() %>">
                             </div>
                             <div class="top-margin">
                                 <label>Prénom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="<%= session.getAttribute("firstName")%>">
+                                <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="<%= account.getPrenom() %>">
                             </div>
                             <div class="top-margin">
                                 <label>Date de Naissance <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="dateBirth" name="dateBirth" required="required"  value="<%= session.getAttribute("dateBrith")%>">
+                                <input type="date" class="form-control" id="dateBirth" name="dateBirth" required="required"  value="<%= new SimpleDateFormat("yyyy-MM-dd").format(account.getNaissance()) %>">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required="required" value="<%= session.getAttribute("email")%>">
+                                <input type="text" class="form-control" id="email" name="email" required="required" value="<%= account.getLogin() %>">
                             </div>
 
                             <div class="row top-margin">

@@ -72,18 +72,16 @@ public final class RegisterServlet extends HttpServlet {
         }
 
         UserAccountDAO dao = new UserAccountDAO();
-        if (dao.get(account.getLogin()).isPresent()) {
+        if (dao.getByLogin(account.getLogin()).isPresent()) {
             request.setAttribute("error",  "Un utilisateur existe déjà avec cet email");
             getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
             return;
         }
 
         dao.save(account);
+        HttpSession session = request.getSession();
+        session.setAttribute("id", account.getId());
 
-        // set cookie to UUID
-       /* Cookie c = new Cookie("user", account.getId());
-        c.setMaxAge(-1);
-        response.addCookie(c);*/
         response.sendRedirect(getServletContext().getContextPath() + "/index.jsp");
     }
 }

@@ -28,9 +28,17 @@ public class UserAccountDAO {
     }
 
     @Transactional
-    public Optional<UserAccount> get(final String login) {
-        Query query = em.createNamedQuery("UserAccount.findAll", UserAccount.class);
+    public Optional<UserAccount> getByLogin(final String login) {
+        Query query = em.createNamedQuery("UserAccount.findByLogin", UserAccount.class);
         query.setParameter("login", login);
+        List<?> accounts = query.getResultList();
+        return Optional.ofNullable(accounts.isEmpty() ? null : (UserAccount) accounts.get(0));
+    }
+
+    @Transactional
+    public Optional<UserAccount> getById(final String id) {
+        Query query = em.createNamedQuery("UserAccount.findById", UserAccount.class);
+        query.setParameter("id", id);
         List<?> accounts = query.getResultList();
         return Optional.ofNullable(accounts.isEmpty() ? null : (UserAccount) accounts.get(0));
     }
