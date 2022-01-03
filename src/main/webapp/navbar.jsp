@@ -12,10 +12,10 @@
                 <li class="active"><a href="index.jsp">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="sidebar-left.html">Left Sidebar</a></li>
-                        <li class="active"><a href="sidebar-right.html">Right Sidebar</a></li>
+                        <li><a href="mesActivites.jsp">Mes activit&eacute;s</a></li>
+                        <li class="active"><a href="ajoutActivite.jsp">Nouvelle activit&eacute;</a></li>
                     </ul>
                 </li>
 

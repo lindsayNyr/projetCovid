@@ -34,7 +34,7 @@
                 <div class="row top-margin">
                     <div class="col-sm-6">
                         <input type="text" class="form-control formFriend" id="emailFriend" name="emailFriend"
-                               required="required">
+                               required="required" placeholder="adresse mail">
                     </div>
                     <div class="col-sm-6">
                         <btn class="btn btn-action formFriend" type="submit">Ajouter un ami</btn>

@@ -1,4 +1,6 @@
-<%--
+<%@ page import="fr.ul.projetcovid.persistence.UserAccount" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.UserAccountDAO" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/27/21
@@ -10,6 +12,8 @@
 
 <html>
 <!-- head -->
+
+
 <head>
 <%@include  file="html/head.html" %>
   <title>home</title>
@@ -25,8 +29,18 @@
     <div class="row">
       <%if (session.getAttribute("id") == null) {%>
         <h1 class="lead">BIENVENUE</h1>
-      <%}else{%>
-        <h1 class="lead">Hello, <%= session.getAttribute("firstName") %> </h1>
+      <%}else{
+
+
+        Optional<UserAccount> acc = new UserAccountDAO().getById((String) session.getAttribute("id"));
+        if (!acc.isPresent()) {
+          response.sendError(403);
+          return;
+        }
+        UserAccount account = acc.get();
+      %>
+
+        <h1 class="lead">Hello, <%= account.getPrenom()%> </h1>
       <%}%>
 
       <p class="tagline">PROGRESSUS: free business bootstrap template by <a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a></p>
