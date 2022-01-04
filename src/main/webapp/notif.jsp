@@ -8,9 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>notification</title>
-</head>
-<body>
+    <%@include file="html/head.html" %>
 
-</body>
-</html>
+
+    <title>Notification</title>
+</head>
+<body class="home">
+
+<%@include file="navbar.jsp" %>
+<header id="head" class="secondary"></header>
+<div class="container">
+    <article class="col-xs-12 maincontent">
+        <header class="page-header">
+            <h1 class="page-title"> Notifications </h1>
+        </header>
+    </article>
+
+
+</div>

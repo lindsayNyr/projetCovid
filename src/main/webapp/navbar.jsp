@@ -12,13 +12,7 @@
                 <li ><a href="index.jsp">Home</a></li>
                 <li><a href="about.html">About</a></li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li ><a href="mesActivites.jsp">Mes activit&eacute;s</a></li>
-                        <li><a href="ajoutActivite.jsp">Nouvelle activit&eacute;</a></li>
-                    </ul>
-                </li>
+
 
 
 
@@ -27,6 +21,13 @@
 
                         <li><a class="btn" href="logged.jsp">SE CONNECTER</a></li>
                 <%}else{%>
+                <li class="dropdown">
+                    <a  class="dropdown-toggle" href="#" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="mesActivites.jsp">Mes activit&eacute;s</a></li>
+                        <li><a href="ajoutActivite.jsp">Nouvelle activit&eacute;</a></li>
+                    </ul>
+                </li>
                         <li><a href="friends.jsp">Amis</a></li>
                         <li><a href="notif.jsp">Notification</a></li>
                         <li><a href="profile.jsp">Profil</a></li>
