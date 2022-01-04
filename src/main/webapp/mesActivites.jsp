@@ -9,9 +9,9 @@
 <html>
 <head>
     <%@include file="html/head.html" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="js/friendsFilter.js"></script>
-    <title>amis</title>
+
+
+    <title>mes activites</title>
 </head>
 <body class="home">
 
@@ -29,9 +29,15 @@
                 <div class="row top-margin">
                     <div class="col-sm-3">
                         <select type="text" class="form-control formFriend" id="nameActivite" name="nameActivite"
-                               required="required">
+                                required="required"></select>
 
                     </div>
+                    <div class="col-sm-3">
+                        <input type="datetime-local" class="form-control formFriend" id="date"
+                               name="date">
+
+                    </div>
+
                     <div class="col-sm-3">
                         <input type="text" class="form-control formFriend" id="codePostal" name="codePostal"
                                required="required" placeholder="codePostal">
@@ -40,13 +46,15 @@
                         <input type="text" class="form-control formFriend" id="ville" name="ville"
                                required="required" placeholder="ville">
                     </div>
-                    <div class="col-sm-3">
-                        <btn class="btn btn-action formFriend" type="submit">Ajouter une activité</btn>
-                    </div>
+
                 </div>
+                <br>
+
+                <btn class="btn btn-action btnActivite formFriend" type="submit">Ajouter une activité</btn>
+
             </form>
 
-            </br> </br>
+            <br> <br>
 
 
             <input id="filter" type="text" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
@@ -58,10 +66,11 @@
                     <th scope="col">Activité</th>
                     <th scope="col">Lieux</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Supprimer</th>
                 </tr>
                 </thead>
                 <tbody>
-
 
 
                 </tbody>
@@ -69,8 +78,8 @@
         </article>
     </div>
 </div>
-</div>
-</div>
+
+
 
 
 </body>

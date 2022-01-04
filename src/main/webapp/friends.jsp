@@ -14,8 +14,7 @@
 <html>
 <head>
     <%@include file="html/head.html" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="js/friendsFilter.js"></script>
+
     <title>amis</title>
 </head>
 <body class="home">

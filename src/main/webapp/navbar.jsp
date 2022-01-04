@@ -9,15 +9,18 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li class="active"><a href="index.jsp">Home</a></li>
+                <li ><a href="index.jsp">Home</a></li>
                 <li><a href="about.html">About</a></li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="mesActivites.jsp">Mes activit&eacute;s</a></li>
-                        <li class="active"><a href="ajoutActivite.jsp">Nouvelle activit&eacute;</a></li>
+                        <li ><a href="mesActivites.jsp">Mes activit&eacute;s</a></li>
+                        <li><a href="ajoutActivite.jsp">Nouvelle activit&eacute;</a></li>
                     </ul>
                 </li>
+
+
 
 
                 <%if (session.getAttribute("id") == null) {%>

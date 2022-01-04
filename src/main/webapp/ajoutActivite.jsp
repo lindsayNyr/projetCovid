@@ -9,8 +9,8 @@
 <html>
 <head>
     <%@include file="html/head.html" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="js/friendsFilter.js"></script>
+
+
     <title>amis</title>
 </head>
 <body class="home">
@@ -21,7 +21,7 @@
     <div class="container">
         <article class="col-xs-12 maincontent">
             <header class="page-header">
-                <h1 class="page-title"> Ajout et Liste d'activité des activités</h1>
+                <h1 class="page-title"> Ajout d'activité </h1>
             </header>
 
             <form>
@@ -31,14 +31,6 @@
                         <input type="text" class="form-control formFriend" id="nameActivite" name="nameActivite"
                                required="required">
 
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control formFriend" id="codePostal" name="codePostal"
-                               required="required">
-                    </div>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control formFriend" id="ville" name="ville"
-                               required="required">
                     </div>
                     <div class="col-sm-6">
                         <btn class="btn btn-action formFriend" type="submit">Ajouter une activit&eacute;</btn>
@@ -55,9 +47,9 @@
                 <thead>
                 <tr>
 
-                    <th scope="col">Activité</th>
-                    <th scope="col">Lieux</th>
-                    <th scope="col">Date</th>
+                    <th scope="col">Activité Name</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Supprimer</th>
                 </tr>
                 </thead>
                 <tbody>
