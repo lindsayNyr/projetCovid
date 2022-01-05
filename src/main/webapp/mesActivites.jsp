@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+
     <%@include file="html/head.html" %>
+
 
 
     <title>mes activites</title>
@@ -39,7 +41,7 @@
                     </div>
 
                     <div class="col-sm-3">
-                        <input type="text" class="form-control formFriend" id="codePostal" name="codePostal"
+                        <input type="search" class="form-control formFriend" id="codePostal" name="codePostal"
                                required="required" placeholder="codePostal">
                     </div>
                     <div class="col-sm-3">
@@ -79,7 +81,7 @@
     </div>
 </div>
 
-
+<%@include  file="html/src.html" %>
 
 
 </body>

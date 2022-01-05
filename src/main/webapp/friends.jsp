@@ -29,7 +29,6 @@
             </header>
 
             <form>
-
                 <div class="row top-margin">
                     <div class="col-sm-6">
                         <input type="text" class="form-control formFriend" id="emailFriend" name="emailFriend"
@@ -44,7 +43,7 @@
             </br> </br>
 
 
-            <input id="filter" type="text" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
+            <input id="filter" class="filter" type="text" class="form-control" placeholder="Rechercher..." >
             </br>
             <table class="table">
                 <thead>
@@ -97,6 +96,7 @@
 </div>
 </div>
 
+<%@include  file="html/src.html" %>
 
 </body>
 </html>

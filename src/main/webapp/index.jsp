@@ -16,6 +16,7 @@
 
 <head>
 <%@include  file="html/head.html" %>
+
   <title>home</title>
 </head>
 <body class="home">

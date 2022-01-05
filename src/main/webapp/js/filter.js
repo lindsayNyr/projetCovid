@@ -1,5 +1,6 @@
 
-function filter() {
+$(".filter").keyup(function () {
+
 
         var val = this.value;
         $("table").find("tr").each(function(index) {
@@ -9,10 +10,11 @@ function filter() {
             var trouver = false;
             $(this).find('td').each(function () {
 
-                 trouver = trouver || $(this).text().indexOf(val) !== -1;
+                trouver = trouver || $(this).text().indexOf(val) !== -1;
             });
 
             $(this).toggle(trouver);
 
         });
-}
+});
+

@@ -49,6 +49,10 @@
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <h3 class="thin text-center"> Se déclarer positif </h3>
+                        <hr>
+                        <button class="btn btn-action btnActivite" type="submit">Je suis positif au covid</button>
+                        <hr>
                         <h3 class="thin text-center">Modifier votre profil</h3>
                         <hr>
 
@@ -109,5 +113,6 @@
     </div>
 </div>	<!-- /container -->
 
+<%@include  file="html/src.html" %>
 </body>
 </html>
