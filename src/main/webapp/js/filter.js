@@ -1,10 +1,5 @@
 
-
-  console.log("document");
-
     $(".filterSearch").keyup(function () {
-
-        console.log("ok");
 
         var val = this.value;
         $("table").find("tr").each(function(index) {

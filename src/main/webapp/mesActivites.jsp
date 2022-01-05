@@ -41,13 +41,15 @@
                     </div>
 
                     <div class="col-sm-3">
-                        <input type="search" class="form-control formFriend" id="codePostal" name="codePostal"
-                               required="required" placeholder="codePostal">
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control formFriend" id="ville" name="ville"
+                        <input type="text" class="form-control formFriend mdb-autocomplete" id="ville" name="ville"
                                required="required" placeholder="ville">
                     </div>
+
+                    <div class="col-sm-3">
+                        <input  class="form-control formFriend" id="cp" name="cp"
+                                 required="required" placeholder="codePostal">
+                    </div>
+
 
                 </div>
                 <br>
@@ -82,6 +84,8 @@
 </div>
 
 <%@include  file="html/src.html" %>
+
+
 
 
 </body>

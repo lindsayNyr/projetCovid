@@ -41,7 +41,7 @@
             </br> </br>
 
 
-            <input id="filter" type="text" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
+            <input id="filter" type="search" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
             </br>
             <table class="table">
                 <thead>
