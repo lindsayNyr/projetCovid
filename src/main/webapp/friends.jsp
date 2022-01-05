@@ -43,7 +43,7 @@
             </br> </br>
 
 
-            <input id="filter" class="filter" type="text" class="form-control" placeholder="Rechercher..." >
+            <input id="filterSearch"  type="text" class="form-control filterSearch" placeholder="Rechercher..." >
             </br>
             <table class="table">
                 <thead>
