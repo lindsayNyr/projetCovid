@@ -11,14 +11,14 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Friends.of", query = "select distinct f from Friends f where f.account1.id = :id or f.account2.id = :id")
 })
-//@IdClass(FriendsId.class)
+@IdClass(FriendsId.class)
 public class Friends implements Serializable {
     @Id
-    @OneToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+    @OneToOne(targetEntity = UserAccount.class)
     @JoinColumn(name = "id1")
     private UserAccount account1;
     @Id
-    @OneToOne(fetch = FetchType.LAZY, targetEntity = UserAccount.class)
+    @OneToOne(targetEntity = UserAccount.class)
     @JoinColumn(name = "id2")
     private UserAccount account2;
 

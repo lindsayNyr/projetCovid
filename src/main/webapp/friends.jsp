@@ -3,7 +3,8 @@
 <%@ page import="fr.ul.projetcovid.persistence.dao.FriendsDAO" %>
 <%@ page import="fr.ul.projetcovid.persistence.dao.UserAccountDAO" %>
 <%@ page import="java.util.Optional" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="javaf.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -28,14 +29,22 @@
                 <h1 class="page-title">Ajout et Liste D'amis </h1>
             </header>
 
-            <form>
+            <form action="${pageContext.request.contextPath}/addfriend" method="post">
+                <% if(request.getAttribute("error") != null) {%>
+                <div class="error">
+                            <span class="error">
+                            Une erreur a été rencontrée : <%=request.getAttribute("error")%>
+                            </span>
+                </div>
+                <%}%>
+
                 <div class="row top-margin">
                     <div class="col-sm-6">
                         <input type="text" class="form-control formFriend" id="emailFriend" name="emailFriend"
-                               required="required" placeholder="adresse mail">
+                               required="required" placeholder="adresse mail" value="<%= Objects.nonNullOrElse(request.getParameter("emailFriend"), "") %>">
                     </div>
                     <div class="col-sm-6">
-                        <btn class="btn btn-action formFriend" type="submit">Ajouter un ami</btn>
+                        <button class="btn btn-action formFriend" type="submit">Ajouter un ami</button>
                     </div>
                 </div>
             </form>
