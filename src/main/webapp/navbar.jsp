@@ -1,3 +1,7 @@
+<%@ page import="java.util.Optional" %>
+<%@ page import="fr.ul.projetcovid.persistence.UserAccount" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.UserAccountDAO" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.IsAdminDAO" %>
 <!-- Fixed navbar -->
 <div class="navbar navbar-inverse navbar-fixed-top headroom">
     <div class="container">
@@ -26,6 +30,20 @@
                 <li><a href="friends.jsp">Amis</a></li>
                 <li><a href="notif.jsp">Notification</a></li>
                 <li><a href="profile.jsp">Profil</a></li>
+
+                <%
+                    final String myId = (String) session.getAttribute("id");
+                    final Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(myId);
+                    if (!maybeMyself.isPresent()) {
+                        response.sendError(500);
+                        return;
+                    }
+                    final UserAccount myself = maybeMyself.get();
+                    final boolean isAdmin = new IsAdminDAO().isAdmin(myself);
+
+                    if (isAdmin) {
+                %>
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Gestions<b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -33,6 +51,8 @@
                         <li><a class="dropdown-item" href="user.jsp">utilisateur</a></li>
                     </ul>
                 </li>
+
+                <% } %>
 
                 <li><a class="btn" href="${pageContext.request.contextPath}/logout">SE DECONNECTER</a></li>
                 <% }%>

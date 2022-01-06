@@ -45,7 +45,7 @@ public class AddFriendServlet extends HttpServlet {
         }
 
         // TODO: créer notification demande d'ami
-        
+
         response.sendRedirect(this.getServletContext().getContextPath() + "/friends.jsp");
     }
 }
