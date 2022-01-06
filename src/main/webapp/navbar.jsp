@@ -26,6 +26,14 @@
                 <li><a href="friends.jsp">Amis</a></li>
                 <li><a href="notif.jsp">Notification</a></li>
                 <li><a href="profile.jsp">Profil</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">Gestions<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+
+                        <li><a class="dropdown-item" href="user.jsp">utilisateur</a></li>
+                    </ul>
+                </li>
+
                 <li><a class="btn" href="${pageContext.request.contextPath}/logout">SE DECONNECTER</a></li>
                 <% }%>
 

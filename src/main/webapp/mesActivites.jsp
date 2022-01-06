@@ -12,7 +12,6 @@
     <%@include file="html/head.html" %>
 
 
-
     <title>mes activites</title>
 </head>
 <body class="home">
@@ -35,23 +34,36 @@
 
                     </div>
                     <div class="col-sm-3">
-                        <input type="datetime-local" class="form-control formFriend" id="date"
+                        <input type="date" class="form-control formFriend" id="date"
                                name="date">
 
                     </div>
-
                     <div class="col-sm-3">
-                        <input type="text" class="form-control formFriend mdb-autocomplete" id="ville" name="ville"
-                               required="required" placeholder="ville">
-                    </div>
+                        <input type="time" class="form-control formFriend" id="startTime"
+                               name="startTime" placeholder="heure de début">
 
-                    <div class="col-sm-3">
-                        <input  class="form-control formFriend" id="cp" name="cp"
-                                 required="required" placeholder="codePostal">
                     </div>
+                        <div class="col-sm-3">
+                            <input type="time" class="form-control formFriend" id="endTime"
+                                   name="endTime" placeholder="heure de fin">
+                        </div>
 
 
                 </div>
+
+                    <div class="row top-margin">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control formFriend mdb-autocomplete" id="ville" name="ville"
+                                   required="required" placeholder="ville">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <input class="form-control formFriend" id="cp" name="cp"
+                                   required="required" placeholder="codePostal">
+                        </div>
+                    </div>
+
+
                 <br>
 
                 <btn class="btn btn-action btnActivite formFriend" type="submit">Ajouter une activité</btn>
@@ -70,6 +82,8 @@
                     <th scope="col">Activité</th>
                     <th scope="col">Lieux</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Heure début</th>
+                    <th scope="col">Heure fin</th>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
                 </tr>
@@ -83,9 +97,7 @@
     </div>
 </div>
 
-<%@include  file="html/src.html" %>
-
-
+<%@include file="html/src.html" %>
 
 
 </body>
