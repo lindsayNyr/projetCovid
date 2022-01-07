@@ -17,8 +17,12 @@ import java.util.Objects;
 })
 @NamedQueries({
         @NamedQuery(name = "UserAccount.findByLogin", query = "select u from UserAccount u where u.login = :login"),
-        @NamedQuery(name = "UserAccount.findById", query = "select u from UserAccount u where u.id = :id")
+        @NamedQuery(name = "UserAccount.findById", query = "select u from UserAccount u where u.id = :id"),
+        @NamedQuery(name = "UserAccount.findAllExceptMe", query = "select distinct  u from UserAccount u where u.id <> :id")
+
 })
+
+
 public class UserAccount implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")

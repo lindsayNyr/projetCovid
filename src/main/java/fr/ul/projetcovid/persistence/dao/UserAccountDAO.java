@@ -41,6 +41,32 @@ public final class UserAccountDAO {
         return Optional.ofNullable(account);
     }
 
+
+    @Transactional
+    public List<UserAccount> getAllExceptMe(final UserAccount account) {
+
+        final Query query = em.createNamedQuery("UserAccount.findAllExceptMe", UserAccount.class);
+        query.setParameter("id", account.getId());
+        @SuppressWarnings("unchecked") final List<UserAccount> accounts = (List<UserAccount>) query.getResultList();
+
+        return accounts;
+
+
+    }
+
+    @Transactional
+    public void remove(final UserAccount userAccount){
+        em.getTransaction().begin();
+        //em.remove(userAccount);
+
+        em.flush();
+        em.clear();
+        em.getTransaction().commit();
+    }
+
+
+
+
     @SuppressWarnings("UnusedReturnValue")
     @Transactional
     public UserAccount update(final UserAccount account) {

@@ -1,4 +1,9 @@
-<%--
+<%@ page import="fr.ul.projetcovid.persistence.UserAccount" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.UserAccountDAO" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.List" %>
+<%@ page import="javax.print.DocFlavor" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 1/5/22
@@ -10,8 +15,6 @@
 <head>
 
     <%@include file="html/head.html" %>
-
-
     <title>utlisateurs</title>
 </head>
 <body class="home">
@@ -26,7 +29,7 @@
             </header>
 
 
-            <input id="filter" type="text" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
+            <input id="filter" type="text" class="form-control filter" placeholder="Rechercher..." >
             </br>
             <table class="table">
                 <thead>
@@ -42,6 +45,39 @@
                 </thead>
                 <tbody>
 
+                <%
+                    String userId = (String) session.getAttribute("id");
+                    if (userId == null) {
+                        response.sendError(403);
+                        return;
+                    }
+
+                    Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(userId);
+                    if (!maybeMyself.isPresent()) {
+                        response.sendError(403);
+                        return;
+                    }
+
+                    UserAccount myself = maybeMyself.get();
+                    List<UserAccount> accounts = new UserAccountDAO().getAllExceptMe(myself);
+                    for (UserAccount account : accounts) {
+                        String id = account.getId();
+
+                %>
+                <tr>
+                    <th scope="row"><%= account.getNom() %></th>
+                    <td><%= account.getPrenom() %></td>
+                    <td><%= new SimpleDateFormat("dd/MM/yyyy").format(account.getNaissance()) %></td>
+                    <td><%= account.getLogin() %></td>
+                    <td>
+                        <a href="editUser.jsp?id=<%=id%>" class="btn btn-action btn-lg">Modifier</a>
+                    </td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/deleteUser?idUser=<%=id%>" class="btn btn-danger btn-lg">Supprimer</a>
+                    </td>
+
+                </tr>
+                <%}%>
 
                 </tbody>
             </table>

@@ -14,11 +14,11 @@ import java.util.Objects;
 @IdClass(FriendsId.class)
 public class Friends implements Serializable {
     @Id
-    @OneToOne(targetEntity = UserAccount.class)
+    @OneToOne(targetEntity = UserAccount.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id1")
     private UserAccount account1;
     @Id
-    @OneToOne(targetEntity = UserAccount.class)
+    @OneToOne(targetEntity = UserAccount.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id2")
     private UserAccount account2;
 
