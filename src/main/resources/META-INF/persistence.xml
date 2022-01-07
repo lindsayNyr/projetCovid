@@ -11,6 +11,7 @@
         <class>fr.ul.projetcovid.persistence.FriendsId</class>
         <class>fr.ul.projetcovid.persistence.Friends</class>
         <class>fr.ul.projetcovid.persistence.Notification</class>
+        <class>fr.ul.projetcovid.persistence.Activity</class>
         <class>fr.ul.projetcovid.persistence.FriendRequestNotification</class>
 
         <properties>

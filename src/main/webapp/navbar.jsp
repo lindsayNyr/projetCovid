@@ -23,8 +23,8 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="mesActivites.jsp">Mes activit&eacute;s</a></li>
-                        <li><a class="dropdown-item" href="ajoutActivite.jsp">Nouvelle activit&eacute;</a></li>
+                        <li><a class="dropdown-item" href="myActivity.jsp">Mes activit&eacute;s</a></li>
+                        <li><a class="dropdown-item" href="activity.jsp">Nouvelle activit&eacute;</a></li>
                     </ul>
                 </li>
                 <li><a href="friends.jsp">Amis</a></li>
