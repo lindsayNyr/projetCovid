@@ -57,8 +57,8 @@ public final class UserAccountDAO {
     @Transactional
     public void remove(final UserAccount userAccount){
         em.getTransaction().begin();
-        //em.remove(userAccount);
-
+       // em.remove();
+        em.remove(userAccount);
         em.flush();
         em.clear();
         em.getTransaction().commit();

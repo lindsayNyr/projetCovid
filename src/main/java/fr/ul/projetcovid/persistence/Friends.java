@@ -10,6 +10,7 @@ import java.util.Objects;
 })
 @NamedQueries({
         @NamedQuery(name = "Friends.of", query = "select distinct f from Friends f where f.account1.id = :id or f.account2.id = :id")
+
 })
 @IdClass(FriendsId.class)
 public class Friends implements Serializable {

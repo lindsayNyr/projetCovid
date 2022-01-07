@@ -2,7 +2,10 @@ package fr.ul.projetcovid.servlets;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import fr.ul.projetcovid.persistence.Friends;
 import fr.ul.projetcovid.persistence.UserAccount;
+import fr.ul.projetcovid.persistence.dao.FriendsDAO;
+import fr.ul.projetcovid.persistence.dao.IsAdminDAO;
 import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
 import org.apache.commons.text.StringEscapeUtils;
@@ -36,7 +39,9 @@ public class DeleteUserServlet extends HttpServlet {
 
 
         final String userId   = Objects.nonNullOrElse(request.getParameter("idUser"), "");
-        System.out.println(userId);
+
+        FriendsDAO daoFriends = new FriendsDAO();
+        IsAdminDAO daoIsAdmin = new IsAdminDAO();
 
 
         if (userId.equals("")) {
@@ -47,9 +52,9 @@ public class DeleteUserServlet extends HttpServlet {
 
         @SuppressWarnings("OptionalGetWithoutIsPresent")
         UserAccount account = dao.getById(userId).get();
+        daoIsAdmin.removeAdminFK(account);
+        daoFriends.removeUserFKFriend(account);
         dao.remove(account);
-
-
         response.sendRedirect(getServletContext().getContextPath() + "/user.jsp");
     }
 }

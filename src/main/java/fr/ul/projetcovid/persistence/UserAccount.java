@@ -101,6 +101,10 @@ public class UserAccount implements Serializable {
         this.naissance = naissance;
     }
 
+    public List<UserAccount> getFriends() {
+        return friends;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
