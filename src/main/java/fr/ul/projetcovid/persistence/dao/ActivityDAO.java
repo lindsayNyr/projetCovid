@@ -36,6 +36,46 @@ public class ActivityDAO {
     }
 
 
+    @Transactional
+    public Activity getById(String id) {
+        System.out.println(id);
+        final Query query = em.createNamedQuery("Activity.findAll", Activity.class);
+        Activity activity = em.find(Activity.class, id);
+        return activity;
+
+    }
+
+
+
+
+    @Transactional
+    public void delete(Activity activity) {
+        final Query query = em.createNamedQuery("Activity.findAll", Activity.class);
+        final List<Activity> activities = query.getResultList();
+
+        em.getTransaction().begin();
+        em.remove(activity);
+        em.flush();
+        em.clear();
+        em.getTransaction().commit();
+
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    @Transactional
+    public Activity update(final Activity activity) {
+
+
+        final Activity activity2 = em.getReference(Activity.class, activity.getId());
+        assert activity2 != null;
+
+        em.getTransaction().begin();
+        activity2.setName(activity.getName());
+
+        em.getTransaction().commit();
+
+        return activity2;
+    }
 
 
 

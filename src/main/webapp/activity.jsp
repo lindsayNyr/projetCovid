@@ -33,6 +33,8 @@
                             </span>
             </div>
             <%}%>
+
+
             <form method="POST" action="${pageContext.request.contextPath}/addActivity">
 
                 <div class="row top-margin">
@@ -42,7 +44,7 @@
 
                     </div>
                     <div class="col-sm-6">
-                        <btn class="btn btn-action formFriend" type="submit">Ajouter une activit&eacute;</btn>
+                        <button class="btn btn-action formFriend" id="addActivity" type="submit">Ajouter une activit&eacute;</button>
                     </div>
                 </div>
             </form>
@@ -52,8 +54,11 @@
 
             <input id="filter" type="search" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
             </br>
+
+
+
             <table class="table">
-                <thead>
+               <thead>
                 <tr>
                     <th scope="col">Activité Name</th>
                     <th scope="col">Modifier</th>
@@ -66,7 +71,6 @@
 
 
                     List<Activity> activityList = new ActivityDAO().getAll();
-                    System.out.println(activityList.size());
                     if (!activityList.isEmpty()) {
                         for (Activity a : activityList) {
 
@@ -77,7 +81,7 @@
                         <%=a.getName()%>
                     </td>
                     <td>
-                        <a href="editActivity.jsp?id=<%=a.getId()%>" class="btn btn-action btn-lg">Modifier</a>
+                        <a href="editActivity.jsp?idActivity=<%=a.getId()%>" class="btn btn-action btn-lg">Modifier</a>
                     </td>
                     <td>
                         <a href="${pageContext.request.contextPath}/deleteActivity?idActivity=<%=a.getId()%>"
@@ -87,10 +91,8 @@
 
                 <%
                         }
-
                     }
                 %>
-
 
                 </tbody>
             </table>

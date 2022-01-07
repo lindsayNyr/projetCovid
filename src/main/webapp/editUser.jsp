@@ -19,9 +19,6 @@
     }
 
     String idUser = request.getParameter("id");
-    System.out.println("id =" + idUser);
-
-
 
     Optional<UserAccount> accOp = new UserAccountDAO().getById(idUser);
     UserAccount account = accOp.get();
@@ -57,7 +54,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3 class="thin text-center">Modifier le profil</h3>
-                        <h3 class="thin text-center">Modifier le profil</h3>
+
                         <hr>
 
                         <% if(request.getAttribute("error") != null) {%>
