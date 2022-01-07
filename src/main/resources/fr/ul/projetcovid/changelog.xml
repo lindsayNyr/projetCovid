@@ -50,4 +50,27 @@
         <addForeignKeyConstraint baseColumnNames="id1" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID1" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id2" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID2" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
+    <changeSet id="1641566700169-1" author="mesabloo">
+        <createTable tableName="notification">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_notification"/>
+            </column>
+            <column name="message" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="read" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="friend_request_notification">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friend_request_notification"/>
+            </column>
+            <column name="author_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_AUTHOR" referencedColumnNames="id" referencedTableName="user"/>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
+    </changeSet>
 </databaseChangeLog>

@@ -10,6 +10,8 @@
         <class>fr.ul.projetcovid.persistence.IsAdmin</class>
         <class>fr.ul.projetcovid.persistence.FriendsId</class>
         <class>fr.ul.projetcovid.persistence.Friends</class>
+        <class>fr.ul.projetcovid.persistence.Notification</class>
+        <class>fr.ul.projetcovid.persistence.FriendRequestNotification</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
