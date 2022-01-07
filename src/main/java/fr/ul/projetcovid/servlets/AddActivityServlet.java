@@ -32,8 +32,7 @@ public class AddActivityServlet extends HttpServlet {
         }
 
 
-
-
+        
 
         final Activity activity = new Activity();
         activity.setName(name);
