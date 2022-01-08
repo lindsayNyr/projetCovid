@@ -91,7 +91,7 @@
                     <td><%= new SimpleDateFormat("dd/MM/yyyy").format(friend.getNaissance()) %></td>
                     <td><%= friend.getLogin() %></td>
                     <td>
-                        <btn href="#" class="btn btn-danger btn-lg">Supprimer</btn>
+                        <a href="${pageContext.request.contextPath}/removefriend?id=<%= friend.getId() %>" class="btn btn-danger btn-lg">Supprimer</a>
                     </td>
                 </tr>
                 <% }

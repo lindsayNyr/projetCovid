@@ -35,8 +35,6 @@
         <thead>
         <tr>
 
-            <th scope="col">Type</th>
-            <th scope="col">Source</th>
             <th scope="col">Message</th>
 
         </tr>
@@ -58,15 +56,12 @@
         Collections.reverse(notifs);
         for (Notification notif : notifs) {%>
         <tr>
-            <td style="vertical-align: middle"><%= notif.getType() %></td>
         <%
             switch (notif.getType()) {
                 case COVID: {
 
 
     %>
-            <td scope="col" style="vertical-align: middle"><%= ((CovidNotification) notif).getSource().getPrenom()%> <%=  ((CovidNotification) notif).getSource().getNom()%>
-            </td>
             <td style="vertical-align: middle"><%=notif.getMessage()%>
             </td>
 
@@ -75,8 +70,6 @@
                 }
                 case FRIEND_REQUEST: {
     %>
-            <td scope="col" style="vertical-align: middle"><%=((FriendRequestNotification) notif).getAuthor().getNom() %> - <%=((FriendRequestNotification) notif).getAuthor().getPrenom()  %>
-            </td>
             <td style="vertical-align: middle;display: flex; align-items: center">
                 <span style="flex-grow: 1"><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %></span>
                 <% if (!((FriendRequestNotification) notif).getAccepted()) {%>
@@ -92,14 +85,12 @@
                 case BASIC: {
                     final BasicNotification basicNotification = (BasicNotification) notif;
             %>
-                    <td style="vertical-align: middle"><%= basicNotification.getAuthor().getNom() %><%= basicNotification.getAuthor().getPrenom() %></td>
                     <td style="vertical-align: middle"><%= String.format(basicNotification.getMessage(), basicNotification.getAuthor().getPrenom()) %></td>
                 <%
                     break;
                 }
                 default:
                     %>
-            <td style="vertical-align: middle"></td>
             <td style="vertical-align: middle"></td>
         %><%
             }

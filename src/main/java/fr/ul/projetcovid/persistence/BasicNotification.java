@@ -9,7 +9,7 @@ import javax.persistence.*;
         @NamedQuery(name = "BasicNotification.findById", query = "select b from BasicNotification b where b.id = :id")
 })
 public class BasicNotification extends Notification {
-    @OneToOne(optional = false, orphanRemoval = true)
+    @OneToOne(optional = false, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "author_id", nullable = false)
     private UserAccount author;
 

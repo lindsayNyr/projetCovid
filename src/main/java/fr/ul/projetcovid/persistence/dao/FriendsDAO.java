@@ -59,4 +59,24 @@ public final class FriendsDAO {
         em.getTransaction().commit();
     }
 
+    @Transactional
+    public void removeFriend(final UserAccount myself, final UserAccount friend) {
+        Friends fr1 = new Friends();
+        fr1.setAccount1(myself);
+        fr1.setAccount2(friend);
+        Friends fr2 = new Friends();
+        fr2.setAccount1(friend);
+        fr2.setAccount2(myself);
+
+        fr1 = em.merge(fr1);
+        fr2 = em.merge(fr2);
+
+        em.getTransaction().begin();
+        em.remove(fr1);
+        em.remove(fr2);
+        //em.flush();
+        //em.clear();
+        em.getTransaction().commit();
+    }
+
 }

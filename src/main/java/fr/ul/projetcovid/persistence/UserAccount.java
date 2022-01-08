@@ -45,14 +45,14 @@ public class UserAccount implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "friends",
             joinColumns = @JoinColumn(name = "id1"),
             inverseJoinColumns = @JoinColumn(name = "id2")
     )
     private List<UserAccount> friends = new ArrayList<>();
-    @OneToMany(mappedBy = "recipient", orphanRemoval = true)
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
 
     public List<Notification> getNotifications() {
@@ -121,10 +121,5 @@ public class UserAccount implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         UserAccount that = (UserAccount) o;
         return Objects.equals(id, that.id) && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(nom, that.nom) && Objects.equals(prenom, that.prenom) && Objects.equals(naissance, that.naissance) && Objects.equals(friends, that.friends);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, login, password, nom, prenom, naissance, friends);
     }
 }

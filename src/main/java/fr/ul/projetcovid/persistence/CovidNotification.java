@@ -9,7 +9,7 @@ import javax.persistence.*;
         @NamedQuery(name = "CovidNotification.findById", query = "select c from CovidNotification c where c.id = :id")
 })
 public class CovidNotification extends Notification {
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "source_id", nullable = false)
     private UserAccount source;
 

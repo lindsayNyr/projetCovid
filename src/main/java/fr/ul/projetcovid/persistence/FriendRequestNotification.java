@@ -9,7 +9,7 @@ import javax.persistence.*;
         @NamedQuery(name = "FriendRequestNotification.findById", query = "select f from FriendRequestNotification f where f.id = :id")
 })
 public class FriendRequestNotification extends Notification {
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "author_id", nullable = false)
     private UserAccount author;
     @Column(name = "accepted", nullable = false)
