@@ -16,4 +16,9 @@ public class FriendRequestNotification extends Notification {
     public void setAuthor(UserAccount author) {
         this.author = author;
     }
+
+    @Override
+    public NotificationType getType() {
+        return NotificationType.FRIEND_REQUEST;
+    }
 }

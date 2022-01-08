@@ -7,6 +7,11 @@
 
 
     <changeSet id="1640777257893-1" author="mesabloo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user"/>
+            </not>
+        </preConditions>
         <createTable tableName="user">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
@@ -29,6 +34,16 @@
         </createTable>
         <addUniqueConstraint columnNames="id" constraintName="uc_41ae991308a4fc90e0d39520e" tableName="user"/>
         <addUniqueConstraint columnNames="login" constraintName="uc_eb0f23d831be5076129d1834c" tableName="user"/>
+    </changeSet>
+    <changeSet id="1641636025179-1" author="mesabloo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user"/>
+            </not>
+        </preConditions>
+        <!--<preConditions onFail="HALT">
+            <changeSetExecuted id="1640777257893-1" author="mesabloo" changeLogFile="changelog.xml"/>
+        </preConditions>-->
         <createTable tableName="is_admin">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_is_admin"/>
@@ -38,6 +53,11 @@
         <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="is_admin" constraintName="FK_IS_ADMIN_ON_ACCOUNT" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
     <changeSet id="1640883340327-1" author="mesabloo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="friends"/>
+            </not>
+        </preConditions>
         <createTable tableName="friends">
             <column name="id1" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friends"/>
@@ -50,7 +70,12 @@
         <addForeignKeyConstraint baseColumnNames="id1" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID1" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id2" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID2" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
-    <changeSet id="1641566700169-1" author="mesabloo">
+    <changeSet id="1641634705142-1" author="mesabloo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="notification"/>
+            </not>
+        </preConditions>
         <createTable tableName="notification">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_notification"/>
@@ -62,6 +87,16 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+    </changeSet>
+    <changeSet id="1641635809995-1" author="mesabloo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="friend_request_notification"/>
+            </not>
+        </preConditions>
+        <!--<preConditions onFail="HALT">
+            <changeSetExecuted id="641634705142-1" author="mesabloo" changeLogFile="changelog.xml"/>
+        </preConditions>-->
         <createTable tableName="friend_request_notification">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friend_request_notification"/>
@@ -73,7 +108,24 @@
         <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_AUTHOR" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
     </changeSet>
-
-
-
+    <changeSet id="1641635812313-1" author="mesabloo">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="covid_notification"/>
+            </not>
+        </preConditions>
+        <!--<preConditions onFail="HALT">
+            <changeSetExecuted id="641634705142-1" author="mesabloo" changeLogFile="changelog.xml"/>
+        </preConditions>-->
+        <createTable tableName="covid_notification">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_covid_notification"/>
+            </column>
+            <column name="source_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
+        <addForeignKeyConstraint baseColumnNames="source_id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_SOURCE" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
 </databaseChangeLog>

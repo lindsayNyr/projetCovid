@@ -1,7 +1,10 @@
 package fr.ul.projetcovid.servlets;
 
+import fr.ul.projetcovid.persistence.FriendRequestNotification;
+import fr.ul.projetcovid.persistence.Notification;
 import fr.ul.projetcovid.persistence.UserAccount;
 import fr.ul.projetcovid.persistence.dao.FriendsDAO;
+import fr.ul.projetcovid.persistence.dao.NotificationDAO;
 import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
 
@@ -44,7 +47,11 @@ public class AddFriendServlet extends HttpServlet {
             return;
         }
 
-        // TODO: créer notification demande d'ami
+        FriendRequestNotification friendRequest = new FriendRequestNotification();
+        friendRequest.setMessage("Vous avez reçu une demande d'ami de la part de %s.");
+        friendRequest.setAuthor(myself);
+        friendRequest.setRecipient(friend);
+        new NotificationDAO().sendNotification(friendRequest);
 
         response.sendRedirect(this.getServletContext().getContextPath() + "/friends.jsp");
     }

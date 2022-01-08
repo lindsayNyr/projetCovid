@@ -1,4 +1,6 @@
-<%--
+<%@ page import="fr.ul.projetcovid.persistence.Notification" %>
+<%@ page import="java.util.List" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.NotificationDAO" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -24,7 +26,33 @@
         </header>
     </article>
 
+    <%
+        final String myId = (String) session.getAttribute("id");
+        final Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(myId);
+        if (!maybeMyself.isPresent()) {
+            response.sendError(403);
+            return;
+        }
+        final UserAccount myself = maybeMyself.get();
 
+        List<Notification> myNotifications = new NotificationDAO().fetchNotificationById(myself.getId() /* myId??? */);
+        for (Notification notif : myNotifications) {
+            switch (notif.getType()) {
+                case COVID: {
+    %>
+        Jsp
+    <%
+                    break;
+                }
+                case FRIEND_REQUEST: {
+    %>
+        Jsp non plus
+    <%
+                    break;
+                }
+            }
+        }
+    %>
 </div>
 
 <%@include  file="html/src.html" %>
