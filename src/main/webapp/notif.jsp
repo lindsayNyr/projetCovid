@@ -1,6 +1,7 @@
 <%@ page import="fr.ul.projetcovid.persistence.Notification" %>
 <%@ page import="java.util.List" %>
-<%@ page import="fr.ul.projetcovid.persistence.dao.NotificationDAO" %><%--
+<%@ page import="fr.ul.projetcovid.persistence.dao.NotificationDAO" %>
+<%@ page import="javaf.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -27,7 +28,7 @@
     </article>
 
     <%
-        final String myId = (String) session.getAttribute("id");
+        final String myId = Objects.nonNullOrElse((String) session.getAttribute("id"), "");
         final Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(myId);
         if (!maybeMyself.isPresent()) {
             response.sendError(403);
@@ -35,8 +36,7 @@
         }
         final UserAccount myself = maybeMyself.get();
 
-        List<Notification> myNotifications = new NotificationDAO().fetchNotificationById(myself.getId() /* myId??? */);
-        for (Notification notif : myNotifications) {
+        for (Notification notif : myself.getNotifications()) {
             switch (notif.getType()) {
                 case COVID: {
     %>

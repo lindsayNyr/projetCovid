@@ -8,6 +8,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "notification")
 @Inheritance(strategy = InheritanceType.JOINED)
+@MappedSuperclass
+@DiscriminatorColumn(
+        name="type",
+        discriminatorType = DiscriminatorType.INTEGER
+)
 @NamedQueries({
         @NamedQuery(name = "Notification.findByRecipientId", query = "select distinct n from Notification n where n.recipient.id = :id")
 })

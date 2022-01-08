@@ -70,15 +70,28 @@
         <addForeignKeyConstraint baseColumnNames="id1" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID1" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id2" baseTableName="friends" constraintName="FK_FRIENDS_ON_ID2" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
-    <changeSet id="1641634705142-1" author="mesabloo">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="notification"/>
-            </not>
-        </preConditions>
+    <changeSet id="1641639688929-1" author="mesabloo">
         <createTable tableName="notification">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_notification"/>
+            </column>
+            <column name="type" type="INT"/>
+            <column name="message" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="read" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="notification" constraintName="FK_NOTIFICATION_ON_RECIPIENT" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="1641639701722-1" author="mesabloo">
+        <createTable tableName="covid_notification">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_covid_notification"/>
             </column>
             <column name="message" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -86,20 +99,30 @@
             <column name="read" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
+            <column name="recipient_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
+        <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_RECIPIENT" referencedColumnNames="id" referencedTableName="user"/>
+        <addForeignKeyConstraint baseColumnNames="source_id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_SOURCE" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
-    <changeSet id="1641635809995-1" author="mesabloo">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="friend_request_notification"/>
-            </not>
-        </preConditions>
-        <!--<preConditions onFail="HALT">
-            <changeSetExecuted id="641634705142-1" author="mesabloo" changeLogFile="changelog.xml"/>
-        </preConditions>-->
+    <changeSet id="1641639713365-1" author="mesabloo">
         <createTable tableName="friend_request_notification">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friend_request_notification"/>
+            </column>
+            <column name="message" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="read" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
             </column>
             <column name="author_id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
@@ -107,25 +130,7 @@
         </createTable>
         <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_AUTHOR" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
+        <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_RECIPIENT" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
-    <changeSet id="1641635812313-1" author="mesabloo">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <tableExists tableName="covid_notification"/>
-            </not>
-        </preConditions>
-        <!--<preConditions onFail="HALT">
-            <changeSetExecuted id="641634705142-1" author="mesabloo" changeLogFile="changelog.xml"/>
-        </preConditions>-->
-        <createTable tableName="covid_notification">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_covid_notification"/>
-            </column>
-            <column name="source_id" type="VARCHAR(36)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addForeignKeyConstraint baseColumnNames="id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
-        <addForeignKeyConstraint baseColumnNames="source_id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_SOURCE" referencedColumnNames="id" referencedTableName="user"/>
-    </changeSet>
+
 </databaseChangeLog>

@@ -1,12 +1,10 @@
 package fr.ul.projetcovid.persistence;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "covid_notification")
+@DiscriminatorValue(value="1")
 public class CovidNotification extends Notification {
     @ManyToOne(optional = false)
     @JoinColumn(name = "source_id", nullable = false)

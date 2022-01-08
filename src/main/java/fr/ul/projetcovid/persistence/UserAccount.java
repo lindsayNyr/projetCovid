@@ -52,6 +52,16 @@ public class UserAccount implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id2")
     )
     private List<UserAccount> friends = new ArrayList<>();
+    @OneToMany(mappedBy = "recipient", orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Notification> notifications = new ArrayList<>();
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
 
     public String getId() {
         return id;
