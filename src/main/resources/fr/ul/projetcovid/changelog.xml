@@ -110,7 +110,7 @@
         <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_RECIPIENT" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="source_id" baseTableName="covid_notification" constraintName="FK_COVID_NOTIFICATION_ON_SOURCE" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
-    <changeSet id="1641639713365-1" author="mesabloo">
+    <changeSet id="1641640032348-1" author="mesabloo">
         <createTable tableName="friend_request_notification">
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_friend_request_notification"/>
@@ -125,6 +125,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="author_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
         </createTable>

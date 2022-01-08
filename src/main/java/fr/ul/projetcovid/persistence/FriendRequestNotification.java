@@ -9,6 +9,16 @@ public class FriendRequestNotification extends Notification {
     @ManyToOne(optional = false)
     @JoinColumn(name = "author_id", nullable = false)
     private UserAccount author;
+    @Column(name = "accepted", nullable = false)
+    private Boolean accepted = false;
+
+    public Boolean getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        this.accepted = accepted;
+    }
 
     public UserAccount getAuthor() {
         return author;
