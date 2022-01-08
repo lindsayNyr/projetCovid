@@ -81,7 +81,7 @@
                     }
 
                     UserAccount myself = maybeMyself.get();
-                    List<UserAccount> friends = new FriendsDAO().friendsOf(myself);
+                    List<UserAccount> friends = myself.getFriends();
 
                     for (UserAccount friend : friends) {
                 %>

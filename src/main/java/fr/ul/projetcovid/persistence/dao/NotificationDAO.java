@@ -20,7 +20,7 @@ public class NotificationDAO {
     }
 
     @Transactional
-    public void sendNotification(final Notification anyNotification) {
+    public <T extends Notification> void sendNotification(final T anyNotification) {
         this.em.getTransaction().begin();
         this.em.persist(anyNotification);
         this.em.getTransaction().commit();

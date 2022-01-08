@@ -17,7 +17,6 @@ import java.util.Optional;
 @WebServlet(name = "AddFriendPOST", value = "/addfriend")
 public class AddFriendServlet extends HttpServlet {
     private final UserAccountDAO accountDAO = new UserAccountDAO();
-    private final FriendsDAO friendsDAO = new FriendsDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -29,7 +29,7 @@ public abstract class Notification implements Serializable {
     @NotBlank
     @NotNull
     private String message;
-    @Column(name = "read", nullable = false)
+    @Column(name = "is_read", nullable = false)
     @NotNull
     private Boolean read = false;
     @ManyToOne(optional = false)

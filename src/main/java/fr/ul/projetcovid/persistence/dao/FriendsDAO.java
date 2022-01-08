@@ -28,14 +28,6 @@ public final class FriendsDAO {
     }
 
     @Transactional
-    public List<UserAccount> friendsOf(final UserAccount account) {
-        final Query query = em.createNamedQuery("Friends.of", Friends.class);
-        query.setParameter("id", account.getId());
-        @SuppressWarnings("unchecked") final List<Friends> friends = (List<Friends>) query.getResultList();
-        return friends.stream().map(friend -> friend.getAccount1().getId().equals(account.getId()) ? friend.getAccount2() : friend.getAccount1()).collect(Collectors.toList());
-    }
-
-    @Transactional
     public void removeUserFKFriend(final UserAccount account){
         final Query query = em.createNamedQuery("Friends.of", Friends.class);
         query.setParameter("id", account.getId());
