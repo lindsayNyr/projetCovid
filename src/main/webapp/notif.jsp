@@ -1,9 +1,7 @@
-<%@ page import="fr.ul.projetcovid.persistence.Notification" %>
 <%@ page import="java.util.List" %>
 <%@ page import="fr.ul.projetcovid.persistence.dao.NotificationDAO" %>
 <%@ page import="javaf.util.Objects" %>
-<%@ page import="fr.ul.projetcovid.persistence.FriendRequestNotification" %>
-<%@ page import="fr.ul.projetcovid.persistence.CovidNotification" %><%--
+<%@ page import="fr.ul.projetcovid.persistence.*" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -38,8 +36,6 @@
             <th scope="col">Type</th>
             <th scope="col">Source</th>
             <th scope="col">Message</th>
-            <th scope="col">Accepté</th>
-            <th scope="col">Refusé</th>
 
         </tr>
         </thead>
@@ -55,60 +51,56 @@
         }
         final UserAccount myself = maybeMyself.get();
 
-        for (Notification notif : myself.getNotifications()) {
+        for (Notification notif : myself.getNotifications()) {%>
+        <tr>
+            <td style="vertical-align: middle"><%= notif.getType() %></td>
+        <%
             switch (notif.getType()) {
                 case COVID: {
 
 
     %>
-
-        <tr>
-            <td><%=notif.getType()%>
+            <td scope="col" style="vertical-align: middle"><%= ((CovidNotification) notif).getSource().getPrenom()%> <%=  ((CovidNotification) notif).getSource().getNom()%>
             </td>
-            <td scope="col"><%= ((CovidNotification) notif).getSource().getPrenom()%> <%=  ((CovidNotification) notif).getSource().getNom()%>
+            <td style="vertical-align: middle"><%=notif.getMessage()%>
             </td>
-            <td><%=notif.getMessage()%>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
 
             <%
                     break;
                 }
                 case FRIEND_REQUEST: {
     %>
-        <tr>
-            <td><%=notif.getType()%>
+            <td scope="col" style="vertical-align: middle"><%=((FriendRequestNotification) notif).getAuthor().getNom() %> - <%=((FriendRequestNotification) notif).getAuthor().getPrenom()  %>
             </td>
-            <td scope="col"><%=((FriendRequestNotification) notif).getAuthor().getNom() %> - <%=((FriendRequestNotification) notif).getAuthor().getPrenom()  %>
+            <td style="vertical-align: middle;display: flex; align-items: center">
+                <span style="flex-grow: 1"><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %></span>
+                <% if (!((FriendRequestNotification) notif).getAccepted()) {%>
+                <span>
+                    <a class="btn btn-action"  href="${pageContext.request.contextPath}/acceptfr?id=<%= notif.getId()%>&status=accept"> Accepter </a>
+                    <a class="btn btn-danger" href="${pageContext.request.contextPath}/acceptfr?id=<%= notif.getId() %>&status=deny"> Refuser  </a>
+                </span>
+                <%} else {}%>
             </td>
-            <td><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %>
-            </td>
-
             <%
-                if (!((FriendRequestNotification) notif).getAccepted()) {%>
-            <td><a class="btn btn-action"  href="/acceptfr?id=<%= notif.getId()%>&status=accept"> Accepté </a></td>
-            <td><a class="btn btn-danger" href="/acceptfr?id=<%= notif.getId() %>&status=deny"> Refusé  </a></td>
-            <% } else { %>
-            <td colspan="2"></td>
-            <% }%>
-        </tr>
-            <%
+                    break;
+                }
+                case BASIC: {
+                    final BasicNotification basicNotification = (BasicNotification) notif;
+            %>
+                    <td style="vertical-align: middle"><%= basicNotification.getAuthor().getNom() %><%= basicNotification.getAuthor().getPrenom() %></td>
+                    <td style="vertical-align: middle"><%= String.format(basicNotification.getMessage(), basicNotification.getAuthor().getPrenom()) %></td>
+                <%
                     break;
                 }
                 default:
                     %>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+            <td style="vertical-align: middle"></td>
+            <td style="vertical-align: middle"></td>
         %><%
-
             }
+            %>
+        </tr>
+            <%
         }
     %>
 </div>

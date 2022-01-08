@@ -29,12 +29,10 @@ public final class FriendsDAO {
 
     @Transactional
     public void removeUserFKFriend(final UserAccount account){
-        final Query query = em.createNamedQuery("Friends.of", Friends.class);
-        query.setParameter("id", account.getId());
-        @SuppressWarnings("unchecked") final List<Friends> friends = (List<Friends>) query.getResultList();
+        final List<UserAccount> friends = account.getFriends();
 
         em.getTransaction().begin();
-        for(Friends f : friends) {
+        for(UserAccount f : friends) {
             em.remove(f);
         }
         em.flush();
@@ -44,12 +42,20 @@ public final class FriendsDAO {
 
     @Transactional
     public void addFriendTo(final UserAccount myself, final UserAccount friend) {
-        final Friends fr = new Friends();
-        fr.setAccount1(myself);
-        fr.setAccount2(friend);
-
         em.getTransaction().begin();
-        em.persist(fr);
+        final UserAccount myself1 = em.find(UserAccount.class, myself.getId());
+        final UserAccount friend1 = em.find(UserAccount.class, friend.getId());
+
+        final Friends fr1 = new Friends();
+        fr1.setAccount1(myself1);
+        fr1.setAccount2(friend1);
+        em.persist(fr1);
+
+        final Friends fr2 = new Friends();
+        fr2.setAccount1(friend1);
+        fr2.setAccount2(myself1);
+        em.persist(fr2);
+
         em.getTransaction().commit();
     }
 

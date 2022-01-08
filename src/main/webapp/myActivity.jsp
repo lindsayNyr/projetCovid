@@ -27,7 +27,7 @@
                 <h1 class="page-title"> Ajout et Liste de mes activités</h1>
             </header>
 
-            <form method="POST" action="${pageContext.request.contextPath}/addMyActivity">>
+            <form method="POST" action="${pageContext.request.contextPath}/addMyActivity">
 
                 <div class="row top-margin">
                     <div class="col-sm-3">

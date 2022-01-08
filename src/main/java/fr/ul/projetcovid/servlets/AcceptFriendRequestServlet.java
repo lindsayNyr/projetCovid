@@ -20,7 +20,7 @@ public class AcceptFriendRequestServlet extends HttpServlet {
     private final FriendsDAO friendsDAO = new FriendsDAO();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // id : author id
         // status : "accept" | "deny"
 
@@ -37,13 +37,13 @@ public class AcceptFriendRequestServlet extends HttpServlet {
 
         final Optional<Notification> maybeNotification = dao.getNotificationById(notificationId);
         if (!maybeNotification.isPresent()) {
-            response.sendError(401);
+            response.sendError(400);
             return;
         }
         final Notification notification = maybeNotification.get();
         if (notification.getType() != Notification.NotificationType.FRIEND_REQUEST) {
             response.getWriter().println("Invalid notification [NOT FRIEND REQUEST]");
-            response.sendError(401);
+            response.sendError(400);
             return;
         }
 
@@ -59,7 +59,15 @@ public class AcceptFriendRequestServlet extends HttpServlet {
             msg.setRecipient(notificationFR.getAuthor());
             dao.sendNotification(msg);
 
+            final BasicNotification msg1 = new BasicNotification();
+            msg1.setAuthor(notificationFR.getAuthor());
+            msg1.setMessage("%s est maintenant votre ami(e).");
+            msg1.setRecipient(notificationFR.getRecipient());
+            dao.sendNotification(msg1);
+
             friendsDAO.addFriendTo(notificationFR.getAuthor(), notificationFR.getRecipient());
         }
+
+        response.sendRedirect(this.getServletContext().getContextPath() + "/notif.jsp");
     }
 }

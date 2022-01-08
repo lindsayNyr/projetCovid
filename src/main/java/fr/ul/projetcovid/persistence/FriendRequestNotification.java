@@ -5,6 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "friend_request_notification")
 @DiscriminatorValue(value="2")
+@NamedQueries({
+        @NamedQuery(name = "FriendRequestNotification.findById", query = "select f from FriendRequestNotification f where f.id = :id")
+})
 public class FriendRequestNotification extends Notification {
     @OneToOne(optional = false)
     @JoinColumn(name = "author_id", nullable = false)
