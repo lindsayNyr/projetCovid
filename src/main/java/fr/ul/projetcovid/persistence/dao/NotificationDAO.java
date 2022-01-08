@@ -1,9 +1,6 @@
 package fr.ul.projetcovid.persistence.dao;
 
-import fr.ul.projetcovid.persistence.BasicNotification;
-import fr.ul.projetcovid.persistence.CovidNotification;
-import fr.ul.projetcovid.persistence.FriendRequestNotification;
-import fr.ul.projetcovid.persistence.Notification;
+import fr.ul.projetcovid.persistence.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,7 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Stateless
 public class NotificationDAO {
@@ -49,6 +48,7 @@ public class NotificationDAO {
         this.em.getTransaction().begin();
         notification.setAccepted(true);
         this.em.getTransaction().commit();
+        em.refresh(notification);
     }
 
     @Transactional
@@ -56,5 +56,17 @@ public class NotificationDAO {
         this.em.getTransaction().begin();
         notification.setRead(true);
         this.em.getTransaction().commit();
+        em.refresh(notification);
+    }
+
+    @Transactional
+    public boolean hasFriendRequestFrom(final UserAccount author, final UserAccount recipient) {
+        final Query q = em.createNamedQuery("FriendRequestNotification.fromAccountIdTo", FriendRequestNotification.class);
+        q.setParameter("id1", author.getId());
+        q.setParameter("id2", recipient.getId());
+
+        @SuppressWarnings("unchecked") List<FriendRequestNotification> results = q.getResultList();
+
+        return results.stream().anyMatch(n -> !n.getAccepted());
     }
 }

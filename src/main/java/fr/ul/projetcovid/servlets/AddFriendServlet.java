@@ -17,6 +17,8 @@ import java.util.Optional;
 @WebServlet(name = "AddFriendPOST", value = "/addfriend")
 public class AddFriendServlet extends HttpServlet {
     private final UserAccountDAO accountDAO = new UserAccountDAO();
+    private final FriendsDAO friendsDAO = new FriendsDAO();
+    private final NotificationDAO notifDAO = new NotificationDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,6 +44,18 @@ public class AddFriendServlet extends HttpServlet {
 
         if (email.equals(myself.getLogin())) {
             request.setAttribute("error", "Impossible de s'ajouter en tant qu'ami...");
+            this.getServletContext().getRequestDispatcher("/friends.jsp").forward(request, response);
+            return;
+        }
+
+        if (notifDAO.hasFriendRequestFrom(myself, friend)) {
+            request.setAttribute("error", "Cette personne n'a pas encore accepté d'être votre ami(e)");
+            this.getServletContext().getRequestDispatcher("/friends.jsp").forward(request, response);
+            return;
+        }
+
+        if (myself.getFriends().stream().anyMatch(user -> user.getId().equals(friend.getId()))) {
+            request.setAttribute("error", "Cet utilisateur est déjà votre ami(e)");
             this.getServletContext().getRequestDispatcher("/friends.jsp").forward(request, response);
             return;
         }
