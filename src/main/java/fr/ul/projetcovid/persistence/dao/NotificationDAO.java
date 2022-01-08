@@ -44,7 +44,8 @@ public class NotificationDAO {
     }
 
     @Transactional
-    public <T extends FriendRequestNotification> void markAccepted(final T notification) {
+    public <T extends FriendRequestNotification> void markAccepted(T notification) {
+        notification = em.merge(notification);
         this.em.getTransaction().begin();
         notification.setAccepted(true);
         this.em.getTransaction().commit();
@@ -52,7 +53,8 @@ public class NotificationDAO {
     }
 
     @Transactional
-    public <T extends Notification> void markRead(final T notification) {
+    public <T extends Notification> void markRead(T notification) {
+        notification = em.merge(notification);
         this.em.getTransaction().begin();
         notification.setRead(true);
         this.em.getTransaction().commit();

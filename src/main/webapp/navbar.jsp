@@ -19,7 +19,17 @@
                 <%if (session.getAttribute("id") == null) {%>
 
                 <li><a class="btn" href="logged.jsp">SE CONNECTER</a></li>
-                <%} else {%>
+                <%} else {
+                    final String myId = (String) session.getAttribute("id");
+                    final Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(myId);
+                    if (!maybeMyself.isPresent()) {
+                        response.sendError(500);
+                        return;
+                    }
+                    final UserAccount myself = maybeMyself.get();
+
+                    final long notificationCount = myself.getNotifications().stream().filter(n -> !n.getRead()).count();
+                %>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -28,17 +38,15 @@
                     </ul>
                 </li>
                 <li><a href="friends.jsp">Amis</a></li>
-                <li><a href="notif.jsp">Notification</a></li>
+                <li><a href="notif.jsp">Notifications
+                    <% if (notificationCount > 0) {
+                    %>
+                    <span class="badge"><%= notificationCount %></span>
+                    <% } %></a></li>
                 <li><a href="profile.jsp">Profil</a></li>
 
                 <%
-                    final String myId = (String) session.getAttribute("id");
-                    final Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(myId);
-                    if (!maybeMyself.isPresent()) {
-                        response.sendError(500);
-                        return;
-                    }
-                    final UserAccount myself = maybeMyself.get();
+
                     final boolean isAdmin = new IsAdminDAO().isAdmin(myself);
 
                     if (isAdmin) {

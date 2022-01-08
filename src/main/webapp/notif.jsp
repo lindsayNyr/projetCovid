@@ -51,6 +51,7 @@
         }
         final UserAccount myself = maybeMyself.get();
 
+        final NotificationDAO notifDAO = new NotificationDAO();
         List<Notification> notifs = myself.getNotifications();
         notifs.sort(Comparator.comparing(Notification::getTimestamp));
         Collections.reverse(notifs);
@@ -62,7 +63,7 @@
 
 
     %>
-            <td style="vertical-align: middle"><%=notif.getMessage()%>
+            <td style="vertical-align: middle" <%= notif.getRead() ? "" : "class='info'" %>><%=notif.getMessage()%>
             </td>
 
             <%
@@ -71,7 +72,7 @@
                 case FRIEND_REQUEST: {
     %>
             <td style="vertical-align: middle;display: flex; align-items: center">
-                <span style="flex-grow: 1"><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %></span>
+                <span style="flex-grow: 1" <%= notif.getRead() ? "" : "class='info'" %>><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %></span>
                 <% if (!((FriendRequestNotification) notif).getAccepted()) {%>
                 <span>
                     <a class="btn btn-action"  href="${pageContext.request.contextPath}/acceptfr?id=<%= notif.getId()%>&status=accept"> Accepter </a>
@@ -85,7 +86,7 @@
                 case BASIC: {
                     final BasicNotification basicNotification = (BasicNotification) notif;
             %>
-                    <td style="vertical-align: middle"><%= String.format(basicNotification.getMessage(), basicNotification.getAuthor().getPrenom()) %></td>
+                    <td style="vertical-align: middle" <%= notif.getRead() ? "" : "class='info'" %>><%= String.format(basicNotification.getMessage(), basicNotification.getAuthor().getPrenom()) %></td>
                 <%
                     break;
                 }
@@ -94,6 +95,8 @@
             <td style="vertical-align: middle"></td>
         %><%
             }
+
+            notifDAO.markRead(notif);
             %>
         </tr>
             <%
