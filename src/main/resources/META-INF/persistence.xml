@@ -13,7 +13,7 @@
         <class>fr.ul.projetcovid.persistence.Notification</class>
         <class>fr.ul.projetcovid.persistence.Activity</class>
         <class>fr.ul.projetcovid.persistence.FriendRequestNotification</class>
-
+        <class>fr.ul.projetcovid.persistence.MyActivity</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="javax.persistence.jdbc.driver" value="${dataSource.project.driverClass}"/>

@@ -3,6 +3,7 @@ package fr.ul.projetcovid.persistence.dao;
 import fr.ul.projetcovid.persistence.Activity;
 import fr.ul.projetcovid.persistence.UserAccount;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -11,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Stateless
 public class ActivityDAO {
 
 

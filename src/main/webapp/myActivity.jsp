@@ -1,4 +1,6 @@
-<%--
+<%@ page import="fr.ul.projetcovid.persistence.Activity" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.ActivityDAO" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 1/3/22
@@ -25,12 +27,28 @@
                 <h1 class="page-title"> Ajout et Liste de mes activités</h1>
             </header>
 
-            <form>
+            <form method="POST" action="${pageContext.request.contextPath}/addMyActivity">>
 
                 <div class="row top-margin">
                     <div class="col-sm-3">
-                        <select type="text" class="form-control formFriend" id="nameActivite" name="nameActivite"
-                                required="required"></select>
+                        <select type="text" class="form-control formFriend" id="nameActivity" name="nameActivity"
+                                required="required">
+                            <% List<Activity> activityList = new ActivityDAO().getAll();
+                                if (!activityList.isEmpty()) {
+                                    for (Activity a : activityList) {
+
+                            %>
+                            <option value="<%=a.getId()%>"><%= a.getName() %>
+                            </option>
+
+                            <%
+                                    }
+                                }
+
+                            %>
+
+
+                        </select>
 
                     </div>
                     <div class="col-sm-3">
@@ -43,30 +61,30 @@
                                name="startTime" placeholder="heure de début">
 
                     </div>
-                        <div class="col-sm-3">
-                            <input type="time" class="form-control formFriend" id="endTime"
-                                   name="endTime" placeholder="heure de fin">
-                        </div>
+                    <div class="col-sm-3">
+                        <input type="time" class="form-control formFriend" id="endTime"
+                               name="endTime" placeholder="heure de fin">
+                    </div>
 
 
                 </div>
 
-                    <div class="row top-margin">
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control formFriend mdb-autocomplete" id="ville" name="ville"
-                                   required="required" placeholder="ville">
-                        </div>
-
-                        <div class="col-sm-6">
-                            <input class="form-control formFriend" id="cp" name="cp"
-                                   required="required" placeholder="codePostal">
-                        </div>
+                <div class="row top-margin">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control formFriend mdb-autocomplete" id="ville" name="ville"
+                               required="required" placeholder="ville">
                     </div>
+
+                    <div class="col-sm-6">
+                        <input class="form-control formFriend" id="cp" name="cp"
+                               required="required" placeholder="codePostal">
+                    </div>
+                </div>
 
 
                 <br>
 
-                <btn class="btn btn-action btnActivite formFriend" type="submit">Ajouter une activité</btn>
+                <button class="btn btn-action btnActivite formFriend" type="submit">Ajouter une activité</button>
 
             </form>
 

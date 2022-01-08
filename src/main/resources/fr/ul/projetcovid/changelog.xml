@@ -73,4 +73,7 @@
         <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_AUTHOR" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="friend_request_notification" constraintName="FK_FRIEND_REQUEST_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
     </changeSet>
+
+
+
 </databaseChangeLog>
