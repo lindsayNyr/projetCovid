@@ -1,7 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="fr.ul.projetcovid.persistence.dao.NotificationDAO" %>
 <%@ page import="javaf.util.Objects" %>
-<%@ page import="fr.ul.projetcovid.persistence.*" %><%--
+<%@ page import="fr.ul.projetcovid.persistence.*" %>
+<%@ page import="java.util.Collections" %>
+<%@ page import="java.util.Comparator" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -51,7 +53,10 @@
         }
         final UserAccount myself = maybeMyself.get();
 
-        for (Notification notif : myself.getNotifications()) {%>
+        List<Notification> notifs = myself.getNotifications();
+        notifs.sort(Comparator.comparing(Notification::getTimestamp));
+        Collections.reverse(notifs);
+        for (Notification notif : notifs) {%>
         <tr>
             <td style="vertical-align: middle"><%= notif.getType() %></td>
         <%

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "notification")
@@ -36,6 +37,13 @@ public abstract class Notification implements Serializable {
     @JoinColumn(name = "recipient_id", nullable = false)
     @NotNull
     private UserAccount recipient;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "timestamp", nullable = false)
+    private Date timestamp = new Date(System.currentTimeMillis());
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
 
     public UserAccount getRecipient() {
         return recipient;

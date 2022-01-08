@@ -32,12 +32,15 @@ public final class UserAccountDAO {
         final Query query = em.createNamedQuery("UserAccount.findByLogin", UserAccount.class);
         query.setParameter("login", login);
         final List<?> accounts = query.getResultList();
-        return Optional.ofNullable(accounts.isEmpty() ? null : (UserAccount) accounts.get(0));
+        final UserAccount account = (UserAccount) accounts.get(0);
+        em.refresh(account);
+        return Optional.ofNullable(accounts.isEmpty() ? null : account);
     }
 
     @Transactional
     public Optional<UserAccount> getById(final String id) {
         final UserAccount account = em.find(UserAccount.class, id);
+        em.refresh(account);
         return Optional.ofNullable(account);
     }
 

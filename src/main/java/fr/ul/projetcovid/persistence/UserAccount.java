@@ -45,14 +45,14 @@ public class UserAccount implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany
     @JoinTable(
             name = "friends",
             joinColumns = @JoinColumn(name = "id1"),
             inverseJoinColumns = @JoinColumn(name = "id2")
     )
     private List<UserAccount> friends = new ArrayList<>();
-    @OneToMany(mappedBy = "recipient", orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "recipient", orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
 
     public List<Notification> getNotifications() {

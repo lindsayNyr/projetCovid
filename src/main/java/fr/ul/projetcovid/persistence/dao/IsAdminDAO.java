@@ -29,7 +29,7 @@ public class IsAdminDAO {
     public void removeAdminFK(final UserAccount account) {
         final Query query = this.em.createNamedQuery("IsAdmin.findById", IsAdmin.class);
         query.setParameter("id", account.getId());
-        List isAdmin = query.getResultList();
+        List<?> isAdmin = query.getResultList();
         System.out.println(isAdmin.size());
 
         if (!isAdmin.isEmpty()) {
