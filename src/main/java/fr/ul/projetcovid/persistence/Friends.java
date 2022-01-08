@@ -23,6 +23,14 @@ public class Friends implements Serializable {
         return this.account1;
     }
 
+    public void setAccount1(UserAccount account1) {
+        this.account1 = account1;
+    }
+
+    public void setAccount2(UserAccount account2) {
+        this.account2 = account2;
+    }
+
     public UserAccount getAccount2() {
         return this.account2;
     }

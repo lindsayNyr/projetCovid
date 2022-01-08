@@ -42,4 +42,15 @@ public final class FriendsDAO {
         em.getTransaction().commit();
     }
 
+    @Transactional
+    public void addFriendTo(final UserAccount myself, final UserAccount friend) {
+        final Friends fr = new Friends();
+        fr.setAccount1(myself);
+        fr.setAccount2(friend);
+
+        em.getTransaction().begin();
+        em.persist(fr);
+        em.getTransaction().commit();
+    }
+
 }

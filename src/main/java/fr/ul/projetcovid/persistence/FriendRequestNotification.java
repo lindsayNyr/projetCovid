@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "friend_request_notification")
 @DiscriminatorValue(value="2")
 public class FriendRequestNotification extends Notification {
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "author_id", nullable = false)
     private UserAccount author;
     @Column(name = "accepted", nullable = false)

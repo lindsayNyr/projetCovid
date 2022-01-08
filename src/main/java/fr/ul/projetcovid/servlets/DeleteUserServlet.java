@@ -6,6 +6,7 @@ import fr.ul.projetcovid.persistence.Friends;
 import fr.ul.projetcovid.persistence.UserAccount;
 import fr.ul.projetcovid.persistence.dao.FriendsDAO;
 import fr.ul.projetcovid.persistence.dao.IsAdminDAO;
+import fr.ul.projetcovid.persistence.dao.NotificationDAO;
 import fr.ul.projetcovid.persistence.dao.UserAccountDAO;
 import javaf.util.Objects;
 import org.apache.commons.text.StringEscapeUtils;
@@ -25,6 +26,7 @@ import java.util.Set;
 @WebServlet(name = "DeleteUser", value = "/deleteUser")
 public class DeleteUserServlet extends HttpServlet {
     private final UserAccountDAO dao = new UserAccountDAO();
+    private final NotificationDAO notificationDAO = new NotificationDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

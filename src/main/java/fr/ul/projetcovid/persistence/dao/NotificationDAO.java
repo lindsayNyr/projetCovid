@@ -7,9 +7,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class NotificationDAO {
@@ -23,6 +22,25 @@ public class NotificationDAO {
     public <T extends Notification> void sendNotification(final T anyNotification) {
         this.em.getTransaction().begin();
         this.em.persist(anyNotification);
+        this.em.getTransaction().commit();
+    }
+
+    @Transactional
+    public Optional<Notification> getNotificationById(final Long id) {
+        return Optional.empty();
+    }
+
+    @Transactional
+    public <T extends FriendRequestNotification> void markAccepted(final T notification) {
+        this.em.getTransaction().begin();
+        notification.setAccepted(true);
+        this.em.getTransaction().commit();
+    }
+
+    @Transactional
+    public <T extends Notification> void markRead(final T notification) {
+        this.em.getTransaction().begin();
+        notification.setRead(true);
         this.em.getTransaction().commit();
     }
 }

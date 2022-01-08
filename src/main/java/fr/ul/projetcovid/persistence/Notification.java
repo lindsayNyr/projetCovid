@@ -18,7 +18,7 @@ import java.io.Serializable;
 })
 public abstract class Notification implements Serializable {
     public enum NotificationType {
-        COVID, FRIEND_REQUEST
+        COVID, FRIEND_REQUEST, BASIC
     }
 
     @Id
