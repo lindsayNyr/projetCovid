@@ -40,11 +40,14 @@ public final class RegisterServlet extends HttpServlet {
         final String password = Objects.nonNullOrElse(request.getParameter("password"), "");
         final String passwordConfirm = Objects.nonNullOrElse(request.getParameter("password-confirm"), "");
         final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
+        final String url  = Objects.nonNullOrElse(request.getParameter("url"), "");
 
+        System.out.println(url);
         final UserAccount account = new UserAccount();
         account.setLogin(email);
         account.setNom(StringEscapeUtils.escapeHtml4(lastname));
         account.setPrenom(StringEscapeUtils.escapeHtml4(firstname));
+        account.setUrl(StringEscapeUtils.escapeHtml4(url));
         account.setPassword(password);
         // TODO
         try {

@@ -68,6 +68,18 @@
 
                         <form method="POST" action="${pageContext.request.contextPath}/edit">
                             <div class="top-margin">
+                                <div class="text-center">
+                                    <img src="<%= account.getUrl()%>"
+                                         class="img-rounded" name="imageProfil" id="imageProfil"  alt="...">
+                                </div>
+                            </div>
+                            <div class="top-margin">
+                                <label>Url Image<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="url" name="url"
+                                       required="required"
+                                       value="<%= account.getUrl()%>">
+                            </div>
+                            <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= account.getNom() %>">
                             </div>

@@ -40,6 +40,10 @@ public class EditUserServlet extends HttpServlet {
         final String passwordConfirm = Objects.nonNullOrElse(request.getParameter("password-confirm"), "");
         final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
         final String userId   = Objects.nonNullOrElse(request.getParameter("idUser"), "");
+        final String url   = Objects.nonNullOrElse(request.getParameter("url"), "");
+
+
+        System.out.println(url);
 
 
 
@@ -57,6 +61,7 @@ public class EditUserServlet extends HttpServlet {
         account.setNom(lastname);
         account.setPrenom(firstname);
         account.setLogin(email);
+        account.setUrl(url);
         try {
             account.setNaissance(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
         } catch (ParseException e) {

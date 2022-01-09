@@ -39,6 +39,8 @@ public class EditServlet extends HttpServlet {
         final String password = Objects.nonNullOrElse(request.getParameter("password"), "");
         final String passwordConfirm = Objects.nonNullOrElse(request.getParameter("password-confirm"), "");
         final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
+        final String url   = Objects.nonNullOrElse(request.getParameter("url"), "");
+
 
         HttpSession session = request.getSession();
         String userId;
@@ -55,6 +57,7 @@ public class EditServlet extends HttpServlet {
         account.setNom(lastname);
         account.setPrenom(firstname);
         account.setLogin(email);
+        account.setUrl(url);
         try {
             account.setNaissance(new SimpleDateFormat("yyyy-MM-dd").parse(birthdate));
         } catch (ParseException e) {

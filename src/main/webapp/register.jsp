@@ -11,11 +11,11 @@
 
 <html>
 <head>
-    <%@include  file="html/head.html" %>
+    <%@include file="html/head.html" %>
     <title>inscription</title>
 </head>
 <body>
-<%@include  file="navbar.jsp" %>
+<%@include file="navbar.jsp" %>
 <header id="head" class="secondary"></header>
 
 <!-- container -->
@@ -38,10 +38,11 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <h3 class="thin text-center">Enregistrer un nouveau compte</h3>
-                        <p class="text-center text-muted">Si vous avez déjà un compte connectez vous <a href="logged.jsp">ici</a>  </p>
+                        <p class="text-center text-muted">Si vous avez déjà un compte connectez vous <a
+                                href="logged.jsp">ici</a></p>
                         <hr>
 
-                        <% if(request.getAttribute("error") != null) {%>
+                        <% if (request.getAttribute("error") != null) {%>
                         <div class="error">
                             <span class="error">
                             Une erreur a été rencontrée : <%=request.getAttribute("error")%>
@@ -51,30 +52,51 @@
 
                         <form method="POST" action="${pageContext.request.contextPath}/register">
                             <div class="top-margin">
+                                <div class="text-center">
+                                    <img src="https://us.123rf.com/450wm/kritchanut/kritchanut1401/kritchanut140100054/25251050-photo-de-profil-d-affaires-de-l-avatar.jpg?ver=6"
+                                        class="img-rounded" name="imageProfil" id="imageProfil"  alt="...">
+                                </div>
+                            </div>
+                            <div class="top-margin">
+                                <label>Url Image<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="url" name="url"
+                                       required="required"
+                                       value="https://us.123rf.com/450wm/kritchanut/kritchanut1401/kritchanut140100054/25251050-photo-de-profil-d-affaires-de-l-avatar.jpg?ver=6">
+                            </div>
+                            <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("lastname"), "") %>">
+                                <input type="text" class="form-control" id="lastname" name="lastname"
+                                       required="required"
+                                       value="<%= Objects.nonNullOrElse(request.getParameter("lastname"), "") %>">
                             </div>
                             <div class="top-margin">
                                 <label>Prénom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("firstname"), "") %>">
+                                <input type="text" class="form-control" id="firstname" name="firstname"
+                                       required="required"
+                                       value="<%= Objects.nonNullOrElse(request.getParameter("firstname"), "") %>">
                             </div>
                             <div class="top-margin">
                                 <label>Date de Naissance <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="birthdate" name="birthdate" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("birthdate"), "") %>">
+                                <input type="date" class="form-control" id="birthdate" name="birthdate"
+                                       required="required"
+                                       value="<%= Objects.nonNullOrElse(request.getParameter("birthdate"), "") %>">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required="required" value="<%= Objects.nonNullOrElse(request.getParameter("email"), "") %>">
+                                <input type="text" class="form-control" id="email" name="email" required="required"
+                                       value="<%= Objects.nonNullOrElse(request.getParameter("email"), "") %>">
                             </div>
 
                             <div class="row top-margin">
                                 <div class="col-sm-6">
                                     <label>Mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="password" name="password" required="required">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           required="required">
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Confirmer le mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="password-confirm" name="password-confirm" required="required">
+                                    <input type="password" class="form-control" id="password-confirm"
+                                           name="password-confirm" required="required">
                                 </div>
                             </div>
 
@@ -96,7 +118,9 @@
         <!-- /Article -->
 
     </div>
-</div>	<!-- /container -->
-<%@include  file="html/src.html" %>
+</div>    <!-- /container -->
+<%@include file="html/src.html" %>
+<link rel="stylesheet" href="css/template/assets/css/mycss.css">
+
 </body>
 </html>

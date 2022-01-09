@@ -45,6 +45,10 @@ public class UserAccount implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;
+    @NotBlank(message = "L'image ne peut pas être vide")
+    @Column(name = "url", nullable = false, length = 256)
+    private String url;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "friends",
@@ -123,6 +127,18 @@ public class UserAccount implements Serializable {
 
     public List<UserAccount> getFriends() {
         return friends;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setFriends(List<UserAccount> friends) {
+        this.friends = friends;
     }
 
     @Override

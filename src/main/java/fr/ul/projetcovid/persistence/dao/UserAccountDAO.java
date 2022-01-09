@@ -80,6 +80,7 @@ public final class UserAccountDAO {
         assert account2 != null;
 
         em.getTransaction().begin();
+        account2.setUrl(account.getUrl());
         account2.setLogin(account.getLogin());
         account2.setPrenom(account.getPrenom());
         account2.setNom(account.getNom());
