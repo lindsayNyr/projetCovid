@@ -51,7 +51,9 @@
                     <div class="panel-body">
                         <h3 class="thin text-center"> Se déclarer positif </h3>
                         <hr>
-                        <button class="btn btn-action btnActivite" type="submit">Je suis positif au covid</button>
+                        <form action="${pageContext.request.contextPath}/iampositive" method="POST">
+                            <button class="btn btn-action btnActivite" type="submit">Je suis positif au covid</button>
+                        </form>
                         <hr>
                         <h3 class="thin text-center">Modifier votre profil</h3>
                         <hr>

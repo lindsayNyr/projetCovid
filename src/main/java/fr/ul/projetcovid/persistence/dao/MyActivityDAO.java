@@ -2,6 +2,7 @@ package fr.ul.projetcovid.persistence.dao;
 
 import fr.ul.projetcovid.persistence.Activity;
 import fr.ul.projetcovid.persistence.MyActivity;
+import fr.ul.projetcovid.persistence.Place;
 import fr.ul.projetcovid.persistence.UserAccount;
 
 import javax.ejb.Stateless;
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -60,8 +62,25 @@ public final class MyActivityDAO {
     }
 
 
+    public static final long FIVE_DAYS = 5 * 24 * 3600 * 1000;
 
+    @Transactional
+    public List<MyActivity> recentActivitiesOf(final UserAccount account) {
+        final Query query = em.createNamedQuery("MyActivity.findRecent", MyActivity.class);
+        query.setParameter("id",  account.getId());
+        query.setParameter("date", new Date(System.currentTimeMillis() - FIVE_DAYS)); // 5 days
+        @SuppressWarnings("unchecked") final List<MyActivity> act = (List<MyActivity>) query.getResultList();
 
+        return act;
+    }
 
+    @Transactional
+    public List<MyActivity> locatedAt(final Place place) {
+        final Query query = em.createNamedQuery("MyActivity.findLocatedAt", MyActivity.class);
+        query.setParameter("id", place.getId());
+
+        @SuppressWarnings("unchecked") List<MyActivity> activities = (List<MyActivity>) query.getResultList();
+        return activities;
+    }
 
 }

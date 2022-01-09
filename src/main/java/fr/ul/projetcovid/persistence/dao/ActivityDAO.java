@@ -77,7 +77,4 @@ public class ActivityDAO {
         return activity2;
     }
 
-
-
-
 }
