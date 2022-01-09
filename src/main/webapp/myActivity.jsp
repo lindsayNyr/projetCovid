@@ -3,7 +3,8 @@
 <%@ page import="fr.ul.projetcovid.persistence.Place" %>
 <%@ page import="fr.ul.projetcovid.persistence.dao.*" %>
 <%@ page import="fr.ul.projetcovid.persistence.MyActivity" %>
-<%@ page import="java.text.SimpleDateFormat" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="javaf.util.Objects" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 1/3/22
@@ -123,12 +124,20 @@
 
                 <%
 
+                    final String myId = Objects.nonNullOrElse((String) session.getAttribute("id"), "");
+                    final Optional<UserAccount> maybeMyself = new UserAccountDAO().getById(myId);
+                    if (!maybeMyself.isPresent()) {
+                        response.sendError(403);
+                        return;
+                    }
+                    final UserAccount myself = maybeMyself.get();
+
                     String pattern = "dd-MM-yyyy";
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
                     String patterntime = "hh:mm";
                     SimpleDateFormat time = new SimpleDateFormat(patterntime);
-                    List<MyActivity> MyActivityList = new MyActivityDAO().getAll();
+                    List<MyActivity> MyActivityList = myself.getMyActivities();
                     if (!activityList.isEmpty()) {
                         for (MyActivity m : MyActivityList) {
                             String date  = simpleDateFormat.format(m.getDate());

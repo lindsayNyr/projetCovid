@@ -11,12 +11,12 @@ import java.util.Date;
 
 @Entity
 @Table(name = "myActivity", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id"}),
-
+        @UniqueConstraint(columnNames = {"id"})
 })
 @NamedQueries({
-        @NamedQuery(name = "MyActivity.findAll", query = "select distinct a from MyActivity a")
-
+        @NamedQuery(name = "MyActivity.findAll", query = "select distinct a from MyActivity a"),
+        @NamedQuery(name = "MyActivity.findRecent", query = "select distinct m from MyActivity m where m.userAccount.id = :id and m.date >= :date"),
+        @NamedQuery(name = "MyActivity.findLocatedAt", query = "select distinct m from MyActivity m where m.place.id = :id")
 })
 public class MyActivity {
 
@@ -26,18 +26,18 @@ public class MyActivity {
     @Column(name = "id", nullable = false, length = 36)
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "activity", nullable = false)
     private Activity activity;
 
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user", nullable = false)
-    UserAccount userAccount;
+    private UserAccount userAccount;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "lieux", nullable = false)
-    Place place;
+    private Place place;
 
     @Temporal(TemporalType.TIME)
     @Column(name = "endTime", nullable =false)
