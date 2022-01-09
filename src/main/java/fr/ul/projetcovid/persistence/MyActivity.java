@@ -26,18 +26,18 @@ public class MyActivity {
     @Column(name = "id", nullable = false, length = 36)
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "activity", nullable = false)
     private Activity activity;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user", nullable = false)
-    UserAccount userAccount;
+    private UserAccount userAccount;
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "lieux", nullable = false)
-    Place place;
+    private Place place;
 
     @Temporal(TemporalType.TIME)
     @Column(name = "endTime", nullable =false)

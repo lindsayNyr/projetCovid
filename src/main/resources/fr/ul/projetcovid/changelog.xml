@@ -98,16 +98,6 @@
             </column>
         </createTable>
         <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="notification" constraintName="FK_NOTIFICATION_ON_RECIPIENT" referencedColumnNames="id" referencedTableName="user"/>
-        <createTable tableName="activity">
-            <column name="id" type="VARCHAR(36)">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_activity"/>
-            </column>
-            <column name="name" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        <addUniqueConstraint columnNames="id" constraintName="uc_09bac9e3358fbf5918ca0018b" tableName="activity"/>
-        <addUniqueConstraint columnNames="name" constraintName="uc_9b78d77ae708c70f6199ba5e0" tableName="activity"/>
     </changeSet>
     <changeSet id="1641641899361-1" author="mesabloo">
         <preConditions onFail="MARK_RAN">
@@ -162,7 +152,40 @@
         </createTable>
         <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="basic_notification" constraintName="FK_BASIC_NOTIFICATION_ON_AUTHOR" referencedColumnNames="id" referencedTableName="user"/>
         <addForeignKeyConstraint baseColumnNames="id" baseTableName="basic_notification" constraintName="FK_BASIC_NOTIFICATION_ON_ID" referencedColumnNames="id" referencedTableName="notification"/>
-        <addUniqueConstraint columnNames="id" constraintName="uc_a6816b238b5070b964fa987a4" tableName="lieux"/>
+    </changeSet>
+    <changeSet id="1641699391756-1" author="mesabloo">
+        <createTable tableName="activity">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_activity"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="id" constraintName="uc_09bac9e3358fbf5918ca0018b" tableName="activity"/>
+        <addUniqueConstraint columnNames="name" constraintName="uc_9b78d77ae708c70f6199ba5e0" tableName="activity"/>
+    </changeSet>
+    <changeSet id="1641699399893-1" author="mesabloo">
+        <createTable tableName="place">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_place"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="codePostal" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adresse" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint columnNames="id" constraintName="uc_65462278566e8a086262616a9" tableName="place"/>
+    </changeSet>
+    <changeSet id="1641699411443-1" author="mesabloo">
         <createTable tableName="myActivity">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_myactivity"/>
@@ -188,7 +211,7 @@
         </createTable>
         <addUniqueConstraint columnNames="id" constraintName="uc_d894c734dede0a6a5782333a7" tableName="myActivity"/>
         <addForeignKeyConstraint baseColumnNames="activity" baseTableName="myActivity" constraintName="FK_MYACTIVITY_ON_ACTIVITY" referencedColumnNames="id" referencedTableName="activity"/>
-        <addForeignKeyConstraint baseColumnNames="lieux" baseTableName="myActivity" constraintName="FK_MYACTIVITY_ON_LIEUX" referencedColumnNames="id" referencedTableName="lieux"/>
+        <addForeignKeyConstraint baseColumnNames="lieux" baseTableName="myActivity" constraintName="FK_MYACTIVITY_ON_LIEUX" referencedColumnNames="id" referencedTableName="place"/>
         <addForeignKeyConstraint baseColumnNames="user" baseTableName="myActivity" constraintName="FK_MYACTIVITY_ON_USER" referencedColumnNames="id" referencedTableName="user"/>
     </changeSet>
 </databaseChangeLog>
