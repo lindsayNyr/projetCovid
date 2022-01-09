@@ -62,7 +62,7 @@
                                     for (Place p : placesList) {
 
                             %>
-                            <option value="<%=p.getId()%>"><%= p.getCodePostal()%> - <%=  p.getCity() %>
+                            <option value="<%=p.getId()%>"> <%= p.getName()%> - <%= p.getCodePostal()%> - <%=  p.getCity() %>
                                 -<%=  p.getAdresse() %>
                             </option>
 
