@@ -50,7 +50,7 @@ public class DeleteUserServlet extends HttpServlet {
             return;
         }
 
-        
+
 
 
         @SuppressWarnings("OptionalGetWithoutIsPresent")

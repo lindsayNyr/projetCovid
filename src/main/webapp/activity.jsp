@@ -16,7 +16,17 @@
     <title>activity</title>
 </head>
 <body class="home">
+<%
 
+    Optional<UserAccount> acc = new UserAccountDAO().getById((String) session.getAttribute("id"));
+    if (!acc.isPresent()) {
+        response.sendError(403);
+        return;
+    }
+    UserAccount account = acc.get();
+    Boolean admin = new IsAdminDAO().isAdmin(account);
+
+%>
 <%@include file="navbar.jsp" %>
 <header id="head" class="secondary"></header>
 <div class="row">
@@ -61,8 +71,10 @@
                <thead>
                 <tr>
                     <th scope="col">Activité Name</th>
+                    <% if(admin){%>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
+                    <%}%>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,6 +92,7 @@
                     <td>
                         <%=a.getName()%>
                     </td>
+                    <%if(admin){%>
                     <td>
                         <a href="editActivity.jsp?idActivity=<%=a.getId()%>" class="btn btn-action btn-lg">Modifier</a>
                     </td>
@@ -87,6 +100,7 @@
                         <a href="${pageContext.request.contextPath}/deleteActivity?idActivity=<%=a.getId()%>"
                            class="btn btn-danger btn-lg">Supprimer</a>
                     </td>
+                    <%}%>
                 </tr>
 
                 <%
