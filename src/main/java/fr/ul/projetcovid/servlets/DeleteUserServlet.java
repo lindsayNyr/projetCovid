@@ -45,6 +45,7 @@ public class DeleteUserServlet extends HttpServlet {
         IsAdminDAO daoIsAdmin = new IsAdminDAO();
 
 
+
         if (userId.equals("")) {
             response.sendError(403);
             return;
@@ -53,8 +54,11 @@ public class DeleteUserServlet extends HttpServlet {
 
 
 
+
+
         @SuppressWarnings("OptionalGetWithoutIsPresent")
         UserAccount account = dao.getById(userId).get();
+        notificationDAO.removeUserFKNotif(account);
         daoIsAdmin.removeAdminFK(account);
         daoFriends.removeUserFKFriend(account);
         dao.remove(account);

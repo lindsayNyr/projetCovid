@@ -42,7 +42,6 @@ public final class RegisterServlet extends HttpServlet {
         final String birthdate = Objects.nonNullOrElse(request.getParameter("birthdate"), "");
         final String url  = Objects.nonNullOrElse(request.getParameter("url"), "");
 
-        System.out.println(url);
         final UserAccount account = new UserAccount();
         account.setLogin(email);
         account.setNom(StringEscapeUtils.escapeHtml4(lastname));

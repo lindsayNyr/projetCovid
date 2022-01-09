@@ -62,6 +62,27 @@ public class NotificationDAO {
     }
 
     @Transactional
+    public void removeUserFKNotif(final UserAccount account){
+        final List<Notification> notifications = account.getNotifications();
+
+        em.getTransaction().begin();
+        for(Notification n : notifications) {
+            em.detach(n);
+            if (!em.contains(n)) {
+                em.remove(em.merge(n));
+
+            }else{
+                em.remove(n);
+            }
+
+        }
+        em.flush();
+        em.clear();
+        em.getTransaction().commit();
+    }
+
+
+    @Transactional
     public boolean hasFriendRequestFrom(final UserAccount author, final UserAccount recipient) {
         final Query q = em.createNamedQuery("FriendRequestNotification.fromAccountIdTo", FriendRequestNotification.class);
         q.setParameter("id1", author.getId());

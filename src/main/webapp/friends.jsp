@@ -52,7 +52,7 @@
             </br> </br>
 
 
-            <input id="filterSearch"  type="text" class="form-control filterSearch" placeholder="Rechercher..." >
+            <input id="filter" type="text" class="form-control filter" placeholder="Rechercher..." >
             </br>
             <table class="table">
                 <thead>
