@@ -32,7 +32,6 @@
         <h1 class="lead">BIENVENUE</h1>
       <%}else{
 
-
         Optional<UserAccount> acc = new UserAccountDAO().getById((String) session.getAttribute("id"));
         if (!acc.isPresent()) {
           response.sendError(403);
@@ -44,8 +43,8 @@
         <h1 class="lead">Hello, <%= account.getPrenom()%> </h1>
       <%}%>
 
-      <p class="tagline">PROGRESSUS: free business bootstrap template by <a href="http://www.gettemplate.com/?utm_source=progressus&amp;utm_medium=template&amp;utm_campaign=progressus">GetTemplate</a></p>
-      <p><a class="btn btn-default btn-lg" role="button">MORE INFO</a> <a class="btn btn-action btn-lg" role="button">DOWNLOAD NOW</a></p>
+      <p class="tagline">COVIDTRACKER : Le site de traçage du covid</p>
+
     </div>
   </div>
 </header>
@@ -54,10 +53,10 @@
 <!-- Intro -->
 <div class="container text-center">
   <br> <br>
-  <h2 class="thin">The best place to tell people why they are here</h2>
+  <h2 class="thin">Nous enregistrons vos activités</h2>
   <p class="text-muted">
-    The difference between involvement and commitment is like an eggs-and-ham breakfast:<br>
-    the chicken was involved; the pig was committed.
+   CovidTracker répertorie toutes vos activités afin de vous avertir d'un éventuel cas contact<br>
+
   </p>
 </div>
 <!-- /Intro-->
@@ -66,31 +65,31 @@
 <div class="jumbotron top-space">
   <div class="container">
 
-    <h3 class="text-center thin">Reasons to use this template</h3>
+    <h3 class="text-center thin">Pourquoi utilisé CovidTracker ? </h3>
 
     <div class="row">
       <div class="col-md-3 col-sm-6 highlight">
-        <div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Bootstrap-powered</h4></div>
+        <div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Evolutions</h4></div>
         <div class="h-body text-center">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</p>
+          <p>Nous développons le site chaque jour, et réagissons en moins de 24h aux éventuels problèmes technique grace à notre équipe de développeurs </p>
+      </div>
+      </div>
+      <div class="col-md-3 col-sm-6 highlight">
+        <div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Puissance</h4></div>
+        <div class="h-body text-center">
+          <p>Nos équipes donnent toute son énergie de jour en jour pour augmenter la puissance du site</p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 highlight">
-        <div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Fat-free</h4></div>
+        <div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Communauté</h4></div>
         <div class="h-body text-center">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit! </p>
+          <p>Nous avons une communauté soudée, avec notre grande communauté nous pouvons être plus réactives </p>
         </div>
       </div>
       <div class="col-md-3 col-sm-6 highlight">
-        <div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Creative Commons</h4></div>
+        <div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Clients satisfaits</h4></div>
         <div class="h-body text-center">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</p>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 highlight">
-        <div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Author's support</h4></div>
-        <div class="h-body text-center">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio sequi atque temporibus facere corporis eos expedita? </p>
+          <p>Nous avons un taux de satisfactions de nos Clients de 98% et nous nous améliorions en prenant en compte leurs avis en tout circonstances</p>
         </div>
       </div>
     </div> <!-- /row  -->
@@ -102,40 +101,36 @@
 <!-- container -->
 <div class="container">
 
-  <h2 class="text-center top-space">Frequently Asked Questions</h2>
+  <h2 class="text-center top-space">Questions fréquentes</h2>
   <br>
 
   <div class="row">
     <div class="col-sm-6">
-      <h3>Which code editor would you recommend?</h3>
-      <p>I'd highly recommend you <a href="http://www.sublimetext.com/">Sublime Text</a> - a free to try text editor which I'm using daily. Awesome tool!</p>
+      <h3>En combien de temps sommes-nous notifier d'être cas contact ?  </h3>
+      <p>La notification est instantanée, dès que la personne s'est déclarée positive</p>
     </div>
     <div class="col-sm-6">
-      <h3>Nice header. Where do I find more images like that one?</h3>
-      <p>
-        Well, there are thousands of stock art galleries, but personally,
-        I prefer to use photos from these sites: <a href="http://unsplash.com">Unsplash.com</a>
-        and <a href="http://www.flickr.com/creativecommons/by-2.0/tags/">Flickr - Creative Commons</a></p>
+      <h3>Pouvons-nous gérer les activités d'un proche ?</h3>
+      <p>Non, nous y travaillons, encore un peu de patience ...</p>
     </div>
   </div> <!-- /row -->
 
   <div class="row">
     <div class="col-sm-6">
-      <h3>Can I use it to build a site for my client?</h3>
+      <h3>Peut-on enregistrer des activités dans d'autres pays ?</h3>
       <p>
-        Yes, you can. You may use this template for any purpose, just don't forget about the <a href="http://creativecommons.org/licenses/by/3.0/">license</a>,
-        which says: "You must give appropriate credit", i.e. you must provide the name of the creator and a link to the original template in your work.
+        Nous n'enregistrons pas les pays, mais vous pouvez saisir une activité dans une ville étrangère même si l'auto-complétion vous ne le propose pas
       </p>
     </div>
     <div class="col-sm-6">
-      <h3>Can you customize this template for me?</h3>
-      <p>Yes, I can. Please drop me a line to sergey-at-pozhilov.com and describe your needs in details. Please note, my services are not cheap.</p>
+      <h3>Peut-on ajouter des amis qui étaient présent avec moi a une activité ?</h3>
+      <p>Non, chacun de vos amis doit déclarer l'activité personnellement</p>
     </div>
   </div> <!-- /row -->
 
   <div class="jumbotron top-space">
-    <h4>Dicta, nostrum nemo soluta sapiente sit dolor quae voluptas quidem doloribus recusandae facere magni ullam suscipit sunt atque rerum eaque iusto facilis esse nam veniam incidunt officia perspiciatis at voluptatibus. Libero, aliquid illum possimus numquam fuga.</h4>
-    <p class="text-right"><a class="btn btn-primary btn-large">Learn more »</a></p>
+    <h4>Vous pouvez contactez notre service client au : +33 1 28 53 87 18
+    ou par adresse mail a : <a href="mailto:covidTracker@service.com">covidTracker@service.com</a></h4>
   </div>
 
 </div>	<!-- /container -->
