@@ -33,6 +33,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">Activit&eacute; <b class="caret"></b></a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="place.jsp">Lieux</a></li>
                         <li><a class="dropdown-item" href="myActivity.jsp">Mes activit&eacute;s</a></li>
                         <li><a class="dropdown-item" href="activity.jsp">Nouvelle activit&eacute;</a></li>
                     </ul>

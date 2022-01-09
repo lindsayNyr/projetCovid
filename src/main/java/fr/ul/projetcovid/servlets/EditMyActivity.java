@@ -25,8 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.Set;
 
-@WebServlet(name = "addMyActivitydPOST", value = "/addMyActivity")
-public class AddMyActivity extends HttpServlet {
+@WebServlet(name = "editMyActivitydPOST", value = "/editMyActivity")
+public class EditMyActivity extends HttpServlet {
 
 
     private final MyActivityDAO myActivityDAO = new MyActivityDAO();
@@ -54,8 +54,6 @@ public class AddMyActivity extends HttpServlet {
             return;
         }
         myActivity.setUserAccount(userAccount.get());
-
-
 
 
         myActivity.setPlace(place);
@@ -90,8 +88,9 @@ public class AddMyActivity extends HttpServlet {
         }
 
 
-        myActivityDAO.save(myActivity);
-        response.sendRedirect(this.getServletContext().getContextPath() + "/myActivity.jsp");
+
+        myActivityDAO.update(myActivity);
+        response.sendRedirect(this.getServletContext().getContextPath() + "/myactivity.jsp");
 
 
     }

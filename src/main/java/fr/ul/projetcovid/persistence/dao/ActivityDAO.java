@@ -40,8 +40,6 @@ public class ActivityDAO {
 
     @Transactional
     public Activity getById(String id) {
-        System.out.println(id);
-        final Query query = em.createNamedQuery("Activity.findAll", Activity.class);
         Activity activity = em.find(Activity.class, id);
         return activity;
 

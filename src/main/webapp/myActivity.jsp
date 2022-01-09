@@ -1,6 +1,9 @@
 <%@ page import="fr.ul.projetcovid.persistence.Activity" %>
-<%@ page import="fr.ul.projetcovid.persistence.dao.ActivityDAO" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="fr.ul.projetcovid.persistence.Place" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.*" %>
+<%@ page import="fr.ul.projetcovid.persistence.MyActivity" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 1/3/22
@@ -31,7 +34,7 @@
 
                 <div class="row top-margin">
                     <div class="col-sm-3">
-                        <select type="text" class="form-control formFriend" id="nameActivity" name="nameActivity"
+                        <select type="text" class="form-control formFriend" id="idActivity" name="idActivity"
                                 required="required">
                             <% List<Activity> activityList = new ActivityDAO().getAll();
                                 if (!activityList.isEmpty()) {
@@ -49,6 +52,28 @@
 
 
                         </select>
+
+
+                        <select type="text" class="form-control formFriend" id="idPlace" name="idPlace"
+                                required="required">
+                            <% List<Place> placesList = new PlaceDAO().getAll();
+                                if (!placesList.isEmpty()) {
+                                    for (Place p : placesList) {
+
+                            %>
+                            <option value="<%=p.getId()%>"><%= p.getCodePostal()%> - <%=  p.getCity() %>
+                                -<%=  p.getAdresse() %>
+                            </option>
+
+                            <%
+                                    }
+                                }
+
+                            %>
+
+
+                        </select>
+
 
                     </div>
                     <div class="col-sm-3">
@@ -69,18 +94,6 @@
 
                 </div>
 
-                <div class="row top-margin">
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control formFriend mdb-autocomplete" id="ville" name="ville"
-                               required="required" placeholder="ville">
-                    </div>
-
-                    <div class="col-sm-6">
-                        <input class="form-control formFriend" id="cp" name="cp"
-                               required="required" placeholder="codePostal">
-                    </div>
-                </div>
-
 
                 <br>
 
@@ -91,8 +104,8 @@
             <br> <br>
 
 
-            <input id="filter" type="text" class="form-control" placeholder="Rechercher..." onkeyup="filter()">
-            </br>
+            <input id="filter" type="text" class="form-control filter" placeholder="Rechercher...">
+            <br>
             <table class="table">
                 <thead>
                 <tr>
@@ -107,6 +120,52 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <%
+
+                    String pattern = "dd-MM-yyyy";
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+                    String patterntime = "hh:mm";
+                    SimpleDateFormat time = new SimpleDateFormat(patterntime);
+                    List<MyActivity> MyActivityList = new MyActivityDAO().getAll();
+                    if (!activityList.isEmpty()) {
+                        for (MyActivity m : MyActivityList) {
+                            String date  = simpleDateFormat.format(m.getDate());
+                            String start = time.format(m.getStartTime());
+                            String end = time.format(m.getEndTime());
+
+                %>
+
+                <tr>
+                    <td>
+                        <%=m.getActivity().getName()%>
+                    </td>
+                    <td>
+                        <%=m.getPlace().getCity()%>
+                    </td>
+                    <td>
+                        <%=date%>
+                    </td>
+                    <td>
+                        <%=start%>
+                    </td>
+                    <td>
+                        <%=end%>
+                    </td>
+                    <td>
+                        <a href="editActivity.jsp?idMyActivity=<%=m.getId()%>" class="btn btn-action btn-lg">Modifier</a>
+                    </td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/deleteMyActivity?idMyActivity=<%=m.getId()%>"
+                           class="btn btn-danger btn-lg">Supprimer</a>
+                    </td>
+                </tr>
+
+                <%
+                        }
+                    }
+                %>
 
 
                 </tbody>

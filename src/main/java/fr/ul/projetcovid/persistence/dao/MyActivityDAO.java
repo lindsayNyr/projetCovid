@@ -8,7 +8,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Stateless
 public final class MyActivityDAO {
@@ -30,24 +32,32 @@ public final class MyActivityDAO {
 
 
 
+    @Transactional
+    public List<MyActivity> getAll() {
+        final Query query = em.createNamedQuery("MyActivity.findAll", MyActivity.class);
+        final List<MyActivity> activities = query.getResultList();
+        return activities;
+    }
 
 
-   /* @SuppressWarnings("UnusedReturnValue")
+
+
+    @SuppressWarnings("UnusedReturnValue")
     @Transactional
     public MyActivity update(final MyActivity myActivity) {
-        final UserAccount account2 = em.getReference(UserAccount.class, account.getId());
-        assert account2 != null;
+        final MyActivity myActivity2 = em.getReference(MyActivity.class, myActivity.getId());
+        assert myActivity2 != null;
 
         em.getTransaction().begin();
-        account2.setLogin(account.getLogin());
-        account2.setPrenom(account.getPrenom());
-        account2.setNom(account.getNom());
-        account2.setNaissance(account.getNaissance());
-        account2.setPassword(account.getPassword());
+        myActivity2.setActivity(myActivity.getActivity());
+        myActivity2.setPlace(myActivity.getPlace());
+        myActivity2.setDate(myActivity.getDate());
+        myActivity2.setEndTime(myActivity.getEndTime());
+        myActivity2.setStartTime(myActivity.getStartTime());
         em.getTransaction().commit();
 
-        return account2;
-    }*/
+        return myActivity2;
+    }
 
 
 

@@ -1,7 +1,7 @@
 package fr.ul.projetcovid.persistence;
 
 
-import org.hibernate.annotations.GenericGenerator;
+ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -10,12 +10,15 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "activity", uniqueConstraints = {
+@Table(name = "myActivity", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"id"}),
-        @UniqueConstraint(columnNames = {"name"})
+
+})
+@NamedQueries({
+        @NamedQuery(name = "MyActivity.findAll", query = "select distinct a from MyActivity a")
+
 })
 public class MyActivity {
-
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -31,13 +34,10 @@ public class MyActivity {
     @JoinColumn(name = "user", nullable = false)
     UserAccount userAccount;
 
-    @Column(name = "city", nullable = false)
-    private String city;
 
-
-    @Column(name = "codePostal", nullable = false)
-    String codePostal;
-
+    @OneToOne
+    @JoinColumn(name = "lieux", nullable = false)
+    Place place;
 
     @Temporal(TemporalType.TIME)
     @Column(name = "endTime", nullable =false)
@@ -57,6 +57,7 @@ public class MyActivity {
     public String getId() {
         return id;
     }
+
 
     public void setId(String id) {
         this.id = id;
@@ -78,21 +79,6 @@ public class MyActivity {
         this.userAccount = userAccount;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCodePostal() {
-        return codePostal;
-    }
-
-    public void setCodePostal(String codePostal) {
-        this.codePostal = codePostal;
-    }
 
     public Date getEndTime() {
         return endTime;
@@ -116,5 +102,13 @@ public class MyActivity {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 }

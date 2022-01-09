@@ -15,7 +15,7 @@
     String idActivity = request.getParameter("idActivity");
     Activity activity = new ActivityDAO().getById(idActivity);
 
-    if(activity == null){
+    if (activity == null) {
         response.sendError(403);
         return;
     }
@@ -24,11 +24,11 @@
 
 <html>
 <head>
-    <%@include  file="html/head.html" %>
+    <%@include file="html/head.html" %>
     <title>Profil</title>
 </head>
 <body>
-<%@include  file="navbar.jsp" %>
+<%@include file="navbar.jsp" %>
 <header id="head" class="secondary"></header>
 
 <!-- container -->
@@ -50,7 +50,7 @@
 
                         <hr>
 
-                        <% if(request.getAttribute("error") != null) {%>
+                        <% if (request.getAttribute("error") != null) {%>
                         <div class="error">
                             <span class="error">
                             Une erreur a été rencontrée: <%=request.getAttribute("error")%>
@@ -59,20 +59,22 @@
                         <%}%>
 
 
+                        <form method="POST"
+                              action="${pageContext.request.contextPath}/editActivity?idActivity=<%=idActivity%>">
 
-                        <form method="POST" action="${pageContext.request.contextPath}/editActivity?idActivity=<%=idActivity%>">
 
+                            <div class="row top-margin">
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control formFriend " id="nameActivity"
+                                           name="nameActivity"
+                                           required="required" value="<%= activity.getName()%>">
 
-                        <div class="row top-margin">
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control formFriend " id="nameActivity" name="nameActivity"
-                                       required="required" value="<%= activity.getName()%>">
-
+                                </div>
+                                <div class="col-sm-6">
+                                    <button class="btn btn-action" id="editActivity" type="submit"> Enregistrer</button>
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <button class="btn btn-action" id="editActivity" type="submit"> Enregistrer </button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 
@@ -82,12 +84,9 @@
         <!-- /Article -->
 
     </div>
-</div>	<!-- /container -->
+</div>    <!-- /container -->
 
-<%@include  file="html/src.html" %>
+<%@include file="html/src.html" %>
 </body>
 </html>
 
-
-<
-</form>

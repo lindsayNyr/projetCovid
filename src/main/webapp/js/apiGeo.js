@@ -51,6 +51,20 @@ $("#ville").autocomplete({
     }
 });
 
-
+$("#adresse").autocomplete({
+    source: function (request, response) {
+        $.ajax({
+            url: "https://api-adresse.data.gouv.fr/search/?postcode="+ $("#cp").val() ,
+            data: { q: request.term },
+            dataType: "json",
+            success: function (data) {
+                response($.map(data.features, function (item) {
+                    console.log(item);
+                    return { label: item.properties.name, value: item.properties.name};
+                }));
+            }
+        });
+    }
+});
 
 
