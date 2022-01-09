@@ -27,11 +27,11 @@
 
 <html>
 <head>
-    <%@include  file="html/head.html" %>
+    <%@include file="html/head.html" %>
     <title>Profil</title>
 </head>
 <body>
-<%@include  file="navbar.jsp" %>
+<%@include file="navbar.jsp" %>
 <header id="head" class="secondary"></header>
 
 <!-- container -->
@@ -57,7 +57,7 @@
 
                         <hr>
 
-                        <% if(request.getAttribute("error") != null) {%>
+                        <% if (request.getAttribute("error") != null) {%>
                         <div class="error">
                             <span class="error">
                             Une erreur a été rencontrée: <%=request.getAttribute("error")%>
@@ -67,20 +67,37 @@
 
                         <form method="POST" action="${pageContext.request.contextPath}/editUser?idUser=<%=idUser%>">
                             <div class="top-margin">
+                                <div class="text-center">
+                                    <img src="<%= account.getUrl()%>"
+                                         class="img-rounded" name="imageProfil" id="imageProfil" alt="...">
+                                </div>
+                            </div>
+                            <div class="top-margin">
+                                <label>Url Image<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="url" name="url"
+                                       required="required"
+                                       value="<%= account.getUrl()%>">
+                            </div>
+                            <div class="top-margin">
                                 <label>Nom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required="required" value="<%= account.getNom() %>">
+                                <input type="text" class="form-control" id="lastname" name="lastname"
+                                       required="required" value="<%= account.getNom() %>">
                             </div>
                             <div class="top-margin">
                                 <label>Prénom <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required="required" value="<%= account.getPrenom() %>">
+                                <input type="text" class="form-control" id="firstname" name="firstname"
+                                       required="required" value="<%= account.getPrenom() %>">
                             </div>
                             <div class="top-margin">
                                 <label>Date de Naissance <span class="text-danger">*</span></label>
-                                <input type="date" class="form-control" id="birthdate" name="birthdate" required="required"  value="<%= new SimpleDateFormat("yyyy-MM-dd").format(account.getNaissance()) %>">
+                                <input type="date" class="form-control" id="birthdate" name="birthdate"
+                                       required="required"
+                                       value="<%= new SimpleDateFormat("yyyy-MM-dd").format(account.getNaissance()) %>">
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="email" name="email" required="required" value="<%= account.getLogin() %>">
+                                <input type="text" class="form-control" id="email" name="email" required="required"
+                                       value="<%= account.getLogin() %>">
                             </div>
 
                             <div class="row top-margin">
@@ -90,7 +107,8 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Confirmer le mot de passe <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="password-confirm" name="password-confirm">
+                                    <input type="password" class="form-control" id="password-confirm"
+                                           name="password-confirm">
                                 </div>
                             </div>
 
@@ -112,8 +130,8 @@
         <!-- /Article -->
 
     </div>
-</div>	<!-- /container -->
+</div>    <!-- /container -->
 
-<%@include  file="html/src.html" %>
+<%@include file="html/src.html" %>
 </body>
 </html>
