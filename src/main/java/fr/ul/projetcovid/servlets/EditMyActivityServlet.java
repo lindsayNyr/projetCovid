@@ -22,11 +22,12 @@ import javax.validation.Validator;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
 
 @WebServlet(name = "editMyActivitydPOST", value = "/editMyActivity")
-public class EditMyActivity extends HttpServlet {
+public class EditMyActivityServlet extends HttpServlet {
 
 
     private final MyActivityDAO myActivityDAO = new MyActivityDAO();
@@ -36,28 +37,32 @@ public class EditMyActivity extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final String activityId = Objects.nonNullOrElse(request.getParameter("idActivity"), "");
+        final String idActivity = Objects.nonNullOrElse(request.getParameter("idActivity"), "");
         final String date = Objects.nonNullOrElse(request.getParameter("date"), "");
         final String startTime = Objects.nonNullOrElse(request.getParameter("startTime"), "");
         final String endTime = Objects.nonNullOrElse(request.getParameter("endTime"), "");
         final String placeId = Objects.nonNullOrElse(request.getParameter("idPlace"), "");
+        final String idMyActivity= Objects.nonNullOrElse(request.getParameter("idMyActivity"), "");
 
 
-        Activity activity = activityDAO.getById(activityId);
-        final MyActivity myActivity = new MyActivity();
+        Activity activity = activityDAO.getById(idActivity);
+        MyActivity myActivity = myActivityDAO.getById(idMyActivity);
         Place place = placeDAO.getById(placeId);
 
         HttpSession session = request.getSession();
         Optional<UserAccount> userAccount = userAccountDAO.getById(String.valueOf(session.getAttribute("id")));
+
         if(!userAccount.isPresent()){
             response.sendError(403);
             return;
         }
+
         myActivity.setUserAccount(userAccount.get());
 
 
         myActivity.setPlace(place);
         myActivity.setActivity(activity);
+
 
 
         try {
@@ -90,7 +95,7 @@ public class EditMyActivity extends HttpServlet {
 
 
         myActivityDAO.update(myActivity);
-        response.sendRedirect(this.getServletContext().getContextPath() + "/myactivity.jsp");
+        response.sendRedirect(this.getServletContext().getContextPath() + "/myActivity.jsp");
 
 
     }

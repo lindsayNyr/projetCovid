@@ -39,7 +39,12 @@ public final class MyActivityDAO {
         return activities;
     }
 
+    @Transactional
+    public MyActivity getById(String id) {
+        MyActivity myactivity = em.find(MyActivity.class, id);
+        return myactivity;
 
+    }
 
 
     @SuppressWarnings("UnusedReturnValue")
@@ -48,13 +53,18 @@ public final class MyActivityDAO {
         final MyActivity myActivity2 = em.getReference(MyActivity.class, myActivity.getId());
         assert myActivity2 != null;
 
+
         em.getTransaction().begin();
         myActivity2.setActivity(myActivity.getActivity());
         myActivity2.setPlace(myActivity.getPlace());
         myActivity2.setDate(myActivity.getDate());
         myActivity2.setEndTime(myActivity.getEndTime());
         myActivity2.setStartTime(myActivity.getStartTime());
+        myActivity2.setUserAccount(myActivity.getUserAccount());
         em.getTransaction().commit();
+
+
+
 
         return myActivity2;
     }

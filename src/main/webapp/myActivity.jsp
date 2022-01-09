@@ -154,7 +154,7 @@
                         <%=end%>
                     </td>
                     <td>
-                        <a href="editActivity.jsp?idMyActivity=<%=m.getId()%>" class="btn btn-action btn-lg">Modifier</a>
+                        <a href="editMyActivity.jsp?idMyActivity=<%=m.getId()%>" class="btn btn-action btn-lg">Modifier</a>
                     </td>
                     <td>
                         <a href="${pageContext.request.contextPath}/deleteMyActivity?idMyActivity=<%=m.getId()%>"

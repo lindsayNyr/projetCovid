@@ -1,7 +1,9 @@
 <%@ page import="fr.ul.projetcovid.persistence.Place" %>
-<%@ page import="fr.ul.projetcovid.persistence.dao.PlaceDAO" %>
 <%@ page import="fr.ul.projetcovid.persistence.MyActivity" %>
-<%@ page import="fr.ul.projetcovid.persistence.dao.MyActivityDAO" %><%--
+<%@ page import="fr.ul.projetcovid.persistence.Activity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="fr.ul.projetcovid.persistence.dao.*" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 1/7/22
@@ -9,25 +11,21 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- head -->
 
 <%
 
     String idMyActivity = request.getParameter("idMyActivity");
-    Place myActivity = new PlaceDAO().getById(idMyActivity);
+    MyActivity myActivity = new MyActivityDAO().getById(idMyActivity);
 
-    if (myActivity == null) {
-        response.sendError(403);
-        return;
-    }
+
 
 %>
 
 <html>
 <head>
     <%@include file="html/head.html" %>
-    <title>Profil</title>
+    <title>Editer mes activité</title>
 </head>
 <body>
 <%@include file="navbar.jsp" %>
@@ -58,24 +56,37 @@
                             Une erreur a été rencontrée: <%=request.getAttribute("error")%>
                             </span>
                         </div>
-                        <%}%>
+                        <%
+                            }
+                            String pattern = "YYYY-MM-DD";
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-                        <form method="POST" action="${pageContext.request.contextPath}/editMyActivity?idMyActivity=<%=idMyActivity%>">
+                            String patterntime = "hh:mm";
+                            SimpleDateFormat time = new SimpleDateFormat(patterntime);
+                        %>
+s
+                        <form method="POST"
+                              action="${pageContext.request.contextPath}/editMyActivity?idMyActivity=<%=myActivity.getId()%>">
 
                             <div class="row top-margin">
                                 <div class="top-margin">
-                                    <select type="text" class="form-control formFriend" id="idMyActivity"
-                                            name="idMyActivity"
+                                    <select type="text" class="form-control formFriend" id="idActivity"
+                                            name="idActivity"
                                             required="required">
-                                        <% List<MyActivity> myActivityList = new MyActivityDAO().getAll();
-                                            if (!myActivityList.isEmpty()) {
-                                                for (MyActivity a : myActivityList) {
+                                        <%
+                                            List<Activity> activityList = new ActivityDAO().getAll();
+                                            if (!activityList.isEmpty()) {
+                                                for (Activity a : activityList) {
+                                                    if (a == myActivity.getActivity()) { %>
 
-                                        %>
-                                        <option value="<%=a.getId()%>"><%= a.getName() %>
-                                        </option>
+                                                    <option selected value="<%=a.getId()%>"><%= a.getName()%>   </option>
+
+                                                <%}else{ %>
+
+                                        <option value="<%=a.getId()%>"><%= a.getName() %></option>
 
                                         <%
+                                                    }
                                                 }
                                             }
 
@@ -90,35 +101,41 @@
                                         <% List<Place> placesList = new PlaceDAO().getAll();
                                             if (!placesList.isEmpty()) {
                                                 for (Place p : placesList) {
+                                                    if (p == myActivity.getPlace()) { %>
 
-                                        %>
-                                        <option value="<%=p.getId()%>"><%= p.getCodePostal()%> - <%=  p.getCity() %>
-                                            -<%=  p.getAdresse() %>
-                                        </option>
+                                    <option selected value="<%=p.getId()%>"> <%= p.getName()%> - <%=p.getCity()%> </option>
+
+                                        <%}else{ %>
+
+                                        <option value="<%=p.getId()%>"><%= p.getName()%> - <%=p.getCity()%></option>
 
                                         <%
+                                                    }
                                                 }
                                             }
 
                                         %>
 
 
+
                                     </select>
-                                    
+
                                 </div>
                                 <div class="top-margin">
                                     <input type="date" class="form-control formFriend" id="date"
-                                           name="date">
+                                           name="date"  value="<%=simpleDateFormat.format(myActivity.getDate())%>">
+
+
 
                                 </div>
                                 <div class="top-margin">
                                     <input type="time" class="form-control formFriend" id="startTime"
-                                           name="startTime" placeholder="heure de début">
+                                           name="startTime" placeholder="heure de début" value="<%=time.format(myActivity.getStartTime())%>">
 
                                 </div>
                                 <div class="top-margin">
                                     <input type="time" class="form-control formFriend" id="endTime"
-                                           name="endTime" placeholder="heure de fin">
+                                           name="endTime" placeholder="heure de fin" value="<%=time.format((myActivity.getEndTime()))%>">
                                 </div>
 
 
@@ -127,7 +144,7 @@
 
                             <br>
 
-                            <button class="btn btn-action btnActivite formFriend" type="submit">Ajouter une activité
+                            <button class="btn btn-action btnActivite formFriend" type="submit">Enregistré
                             </button>
 
                         </form>
