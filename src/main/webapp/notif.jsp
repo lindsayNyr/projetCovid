@@ -1,9 +1,8 @@
-<%@ page import="java.util.List" %>
 <%@ page import="fr.ul.projetcovid.persistence.dao.NotificationDAO" %>
 <%@ page import="javaf.util.Objects" %>
 <%@ page import="fr.ul.projetcovid.persistence.*" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="java.util.Comparator" %><%--
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %><%--
   Created by IntelliJ IDEA.
   User: lindsay
   Date: 12/29/21
@@ -35,6 +34,7 @@
         <thead>
         <tr>
 
+            <th scope="col">Reçu à</th>
             <th scope="col">Message</th>
 
         </tr>
@@ -55,15 +55,19 @@
         List<Notification> notifs = myself.getNotifications();
         notifs.sort(Comparator.comparing(Notification::getTimestamp));
         Collections.reverse(notifs);
-        for (Notification notif : notifs) {%>
-        <tr>
+        for (Notification notif : notifs) {
+            final Date sent = notif.getTimestamp();
+            String colorClass = (notif.getType() == Notification.NotificationType.COVID ? "warning" : "") + (notif.getRead() ? "" : "info");
+%>
+        <tr class="<%= colorClass %>">
+            <td><%= new SimpleDateFormat("dd-MM-yyyy hh:mm").format(sent) %></td>
         <%
             switch (notif.getType()) {
                 case COVID: {
 
-
+                    final CovidNotification covidNotification = (CovidNotification) notif;
     %>
-            <td style="vertical-align: middle" <%= notif.getRead() ? "" : "class='info'" %>><%=notif.getMessage()%>
+            <td style="vertical-align: middle"><%= String.format(covidNotification.getMessage(), covidNotification.getSource().getPrenom() + " " + covidNotification.getSource().getNom()) %>
             </td>
 
             <%
@@ -72,7 +76,7 @@
                 case FRIEND_REQUEST: {
     %>
             <td style="vertical-align: middle;display: flex; align-items: center">
-                <span style="flex-grow: 1" <%= notif.getRead() ? "" : "class='info'" %>><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %></span>
+                <span style="flex-grow: 1"><%= String.format(notif.getMessage(), ((FriendRequestNotification) notif).getAuthor().getPrenom()) %></span>
                 <% if (!((FriendRequestNotification) notif).getAccepted()) {%>
                 <span>
                     <a class="btn btn-action"  href="${pageContext.request.contextPath}/acceptfr?id=<%= notif.getId()%>&status=accept"> Accepter </a>
@@ -86,7 +90,7 @@
                 case BASIC: {
                     final BasicNotification basicNotification = (BasicNotification) notif;
             %>
-                    <td style="vertical-align: middle" <%= notif.getRead() ? "" : "class='info'" %>><%= String.format(basicNotification.getMessage(), basicNotification.getAuthor().getPrenom()) %></td>
+                    <td style="vertical-align: middle"><%= String.format(basicNotification.getMessage(), basicNotification.getAuthor().getPrenom()) %></td>
                 <%
                     break;
                 }
