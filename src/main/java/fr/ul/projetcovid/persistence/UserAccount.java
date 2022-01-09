@@ -45,15 +45,25 @@ public class UserAccount implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(name = "naissance", nullable = false)
     private Date naissance;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "friends",
             joinColumns = @JoinColumn(name = "id1"),
             inverseJoinColumns = @JoinColumn(name = "id2")
     )
     private List<UserAccount> friends = new ArrayList<>();
-    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Notification> notifications = new ArrayList<>();
+    @OneToMany(mappedBy = "userAccount", cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    private List<MyActivity> myActivities = new ArrayList<>();
+
+    public List<MyActivity> getMyActivities() {
+        return myActivities;
+    }
+
+    public void setMyActivities(List<MyActivity> myActivities) {
+        this.myActivities = myActivities;
+    }
 
     public List<Notification> getNotifications() {
         return notifications;
