@@ -39,7 +39,6 @@ public class DeleteUserServlet extends HttpServlet {
         // - birthdate
 
 
-
         final String userId   = Objects.nonNullOrElse(request.getParameter("idUser"), "");
 
         FriendsDAO daoFriends = new FriendsDAO();
@@ -50,6 +49,8 @@ public class DeleteUserServlet extends HttpServlet {
             response.sendError(403);
             return;
         }
+
+        
 
 
         @SuppressWarnings("OptionalGetWithoutIsPresent")

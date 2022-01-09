@@ -25,6 +25,15 @@
                 <h1 class="page-title"> Ajout et Liste de des lieux</h1>
             </header>
 
+            <% if (request.getAttribute("error") != null) {%>
+            <div class="error">
+                            <span class="error">
+                            Une erreur a été rencontrée: <%=request.getAttribute("error")%>
+                            </span>
+            </div>
+            <%
+                }%>
+
             <form method="POST" action="${pageContext.request.contextPath}/addPlace">
 
                 <div class="row top-margin">
@@ -99,7 +108,7 @@
                         <a href="editPlace.jsp?idPlace=<%=p.getId()%>" class="btn btn-action btn-lg">Modifier</a>
                     </td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/deleteActivity?idPlace=<%=p.getId()%>"
+                        <a href="${pageContext.request.contextPath}/deletePlace?idPlace=<%=p.getId()%>"
                            class="btn btn-danger btn-lg">Supprimer</a>
                     </td>
                 </tr>

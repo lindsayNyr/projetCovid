@@ -1,6 +1,7 @@
 package fr.ul.projetcovid.persistence.dao;
 
 
+import fr.ul.projetcovid.persistence.MyActivity;
 import fr.ul.projetcovid.persistence.Place;
 import fr.ul.projetcovid.persistence.Place;
 import fr.ul.projetcovid.persistence.UserAccount;
@@ -43,6 +44,17 @@ public class PlaceDAO {
         return Place;
 
     }
+
+
+    @Transactional
+    public void remove(final Place place){
+        em.getTransaction().begin();
+        em.remove(place);
+        em.flush();
+        em.clear();
+        em.getTransaction().commit();
+    }
+
 
 
     @SuppressWarnings("UnusedReturnValue")

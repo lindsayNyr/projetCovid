@@ -93,4 +93,13 @@ public final class MyActivityDAO {
         return activities;
     }
 
+    @Transactional
+    public void remove(final MyActivity myActivity){
+        em.getTransaction().begin();
+        em.remove(myActivity);
+        em.flush();
+        em.clear();
+        em.getTransaction().commit();
+    }
+
 }

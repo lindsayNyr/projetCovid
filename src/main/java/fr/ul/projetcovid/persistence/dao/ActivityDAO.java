@@ -49,9 +49,7 @@ public class ActivityDAO {
 
 
     @Transactional
-    public void delete(Activity activity) {
-        final Query query = em.createNamedQuery("Activity.findAll", Activity.class);
-        final List<Activity> activities = query.getResultList();
+    public void remove(Activity activity) {
 
         em.getTransaction().begin();
         em.remove(activity);
